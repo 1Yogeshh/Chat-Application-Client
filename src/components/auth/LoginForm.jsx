@@ -3,13 +3,15 @@ import InputField from "./InputField";
 
 export default function LoginForm() {
     return (
-        <div className="w-full max-w-lg text-center">
-            <h1 className="text-xl font-bold text-gray-900 mb-2">
-                Sign In to Your Account
-            </h1>
-            <p className="text-md text-gray-500 mb-8">
-                Please enter your details
-            </p>
+        <div className="w-full max-w-lg text-center space-y-6">
+            <div>
+                <h1 className="text-xl font-bold text-gray-900 mb-2">
+                    Sign In to Your Account
+                </h1>
+                <p className="text-gray-500">
+                    Please enter your details
+                </p>
+            </div>
 
             <form className="space-y-4 mt-10">
                 <InputField

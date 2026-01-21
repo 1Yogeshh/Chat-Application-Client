@@ -6,13 +6,15 @@ export default function CreateUserForm() {
         <form
             className="w-full max-w-lg space-y-6 text-center"
         >
-            <h1 className="text-xl font-bold text-gray-900">
-                Complete Your Profile
-            </h1>
+            <div>
+                <h1 className="text-xl font-bold text-gray-900 mb-2">
+                    Complete Your Profile
+                </h1>
 
-            <p className="text-gray-500">
-                Just one more step to get started 🚀
-            </p>
+                <p className="text-gray-500">
+                    Just one more step to get started 🚀
+                </p>
+            </div>
 
             {/* EMAIL (prefilled + disabled) */}
             <div>
