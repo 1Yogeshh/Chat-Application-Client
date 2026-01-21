@@ -29,7 +29,7 @@ export default function Login() {
                     </p>
 
                     {/* FORM */}
-                    <form className="space-y-6">
+                    <form className="space-y-6 mt-10">
 
                         {/* Email */}
                         <div>
@@ -108,7 +108,7 @@ export default function Login() {
                     {/* Register */}
                     <p className="text-sm text-center text-gray-600 mt-6">
                         Don&apos;t have an account?{" "}
-                        <a href="#" className="font-bold text-gray-900 underline">
+                        <a href="#" className="font-medium text-gray-900 underline">
                             Create Account
                         </a>
                     </p>
