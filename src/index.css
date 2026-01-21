@@ -1,14 +1,18 @@
 @import "tailwindcss";
-/* flip helpers */
+
+/* 3D helpers */
 .perspective {
-  perspective: 1200px;
+  perspective: 2000px;
 }
+
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
 .backface-hidden {
   backface-visibility: hidden;
 }
+
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
