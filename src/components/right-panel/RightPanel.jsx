@@ -1,4 +1,4 @@
-import { PenLine, Search } from "lucide-react";
+import { MessageSquare, PenLine, Pin, Search } from "lucide-react";
 import ChatListItem from "./ChatListItem";
 
 const RightPanel = () => {
@@ -22,9 +22,12 @@ const RightPanel = () => {
 
       <div className="space-y-6">
         <section>
-          <h4 className="text-xs font-bold text-gray-400 uppercase mb-4">
-            Pinned Chats
-          </h4>
+          <div className="flex gap-2 align-center">
+            <Pin size={18} />
+            <h4 className="text-xs font-bold text-black uppercase mb-4">
+              Pinned Chats
+            </h4>
+          </div>
           <ChatListItem
             name="George Lobko"
             msg="Thanks for the quick response"
@@ -39,9 +42,12 @@ const RightPanel = () => {
         </section>
 
         <section>
-          <h4 className="text-xs font-bold text-gray-400 uppercase mb-4">
-            All Chats
-          </h4>
+          <div className="flex gap-2 align-center">
+            <MessageSquare size={18} />
+            <h4 className="text-xs font-bold text-black uppercase mb-4">
+              All Chats
+            </h4>
+          </div>
           <ChatListItem
             name="Nixtio Team"
             msg="Daniel is typing..."
