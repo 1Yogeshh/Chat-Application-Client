@@ -1,13 +1,22 @@
-import { Search } from "lucide-react";
+import { PenLine, Search } from "lucide-react";
 import ChatListItem from "./ChatListItem";
 
 const RightPanel = () => {
   return (
     <div className="w-80 bg-white p-6 overflow-y-auto rounded-[30px]">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Messages</h2>
-        <div className="p-2 bg-gray-100 rounded-lg">
-          <Search size={18} />
+        <div className="p-2 rounded-lg">
+          <PenLine size={18} />
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-6 bg-gray-100 p-1 rounded-lg">
+          <input type="text" placeholder="Search or start of message" className="w-[85%] p-2 outline-none" />
+          <div className="p-2 rounded-lg">
+            <Search size={18} />
+          </div>
         </div>
       </div>
 
