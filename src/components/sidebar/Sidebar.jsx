@@ -5,10 +5,11 @@ import {
   Star,
   Calendar,
   FileText,
+  User
 } from "lucide-react";
 import NavItem from "./NavItem";
 
-const Sidebar = () => {
+const Sidebar = ({ onProfileClick }) => {
   return (
     <div className="flex w-64 flex-col bg-[#1A0B2E] rounded-[30px] p-8 text-white/60">
       <div className="mb-12 flex items-center gap-2 text-2xl font-bold text-white">
@@ -32,7 +33,7 @@ const Sidebar = () => {
         <NavItem icon={<FileText size={20} />} label="Files" />
       </nav>
 
-      <div className="mt-auto flex items-center gap-3">
+      <div className="mt-auto flex items-center gap-3" onClick={onProfileClick}>
         <img
           src="https://i.pravatar.cc/40?img=12"
           className="h-10 w-10 rounded-xl"

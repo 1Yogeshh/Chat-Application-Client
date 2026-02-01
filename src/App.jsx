@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 import ChatPage from "./pages/Chat"
 import CreateUser from "./pages/CreateUser"
 import Login from "./pages/Login"
-import ProfilePage from "./pages/Profile"
 import Register from "./pages/Register"
 
 function App() {
@@ -19,10 +18,6 @@ function App() {
 
                     {/* MAIN APP */}
                     <Route path="/chat" element={<ChatPage />} />
-
-                    {/* PROFILE */}
-                    <Route path="/profile" element={<ProfilePage isOwn />} />
-                    <Route path="/profile/:username" element={<ProfilePage />} />
 
                     {/* FALLBACK */}
                     <Route path="*" element={<Navigate to="/chat" />} />
