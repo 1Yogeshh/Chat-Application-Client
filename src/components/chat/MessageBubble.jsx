@@ -4,19 +4,30 @@ const MessageBubble = ({
   avatar,
   message,
   time,
+  sender,
+  onUserClick,
 }) => {
   if (type === "received") {
     return (
       <div className="flex gap-3">
         <img
           src={avatar}
-          className="h-10 w-10 rounded-xl self-start"
+          onClick={() => onUserClick?.(sender)}
+          className="h-10 w-10 rounded-xl self-start cursor-pointer"
         />
+
         <div className="max-w-md">
-          <p className="text-xs font-bold mb-1">{name}</p>
+          <p
+            onClick={() => onUserClick?.(sender)}
+            className="text-xs font-bold mb-1 cursor-pointer hover:underline"
+          >
+            {name}
+          </p>
+
           <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm">
             {message}
           </div>
+
           <span className="text-[10px] text-gray-400 mt-1">
             {time}
           </span>

@@ -1,4 +1,4 @@
-export default function ProfileHeader({ isOwn }) {
+export default function ProfileHeader({ isOwn, user }) {
   return (
     <div className="relative">
       {/* COVER */}
@@ -7,16 +7,16 @@ export default function ProfileHeader({ isOwn }) {
       {/* AVATAR */}
       <div className="absolute left-6 -bottom-12 flex items-end gap-4">
         <img
-          src="https://i.pravatar.cc/120"
+          src={user.avatar}
           className="w-28 h-28 rounded-full border-4 border-white"
         />
 
         <div>
           <h1 className="text-xl font-bold text-gray-900">
-            Jordan Betord
+            {user.name}
           </h1>
           <p className="text-sm text-gray-500">
-            @jordan
+            @{user.username}
           </p>
         </div>
       </div>

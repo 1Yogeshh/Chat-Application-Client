@@ -6,20 +6,35 @@ import { useState } from "react";
 import ProfileModal from "../components/profile/ProfileModal";
 
 const ChatPage = () => {
-  const [openProfile, setOpenProfile] = useState(false)
+  const loggedInUser = {
+    id: "1",
+    name: "Jordan Betord",
+    username: "jordan.b_uxui",
+    avatar: "https://i.pravatar.cc/150?img=12",
+  };
+
+  const [profileUser, setProfileUser] = useState(null);
+
   return (
     <div className="relative flex h-screen w-full p-8 font-sans overflow-hidden">
       <AnimatedBackground />
+
       <div className="flex w-full gap-4 overflow-hidden rounded-[40px]">
-        <Sidebar onProfileClick={() => setOpenProfile(true)} />
-        <ChatLayout />
+        {/* SIDEBAR → OWN PROFILE */}
+        <Sidebar onProfileClick={() => setProfileUser(loggedInUser)} />
+
+        {/* CHAT → OTHER USERS */}
+        <ChatLayout onUserClick={(user) => setProfileUser(user)} />
+
         <RightPanel />
       </div>
-      {/* PROFILE MODAL */}
+
+      {/* PROFILE MODAL (OWN + OTHER) */}
       <ProfileModal
-        open={openProfile}
-        onClose={() => setOpenProfile(false)}
-        isOwn
+        open={!!profileUser}
+        user={profileUser}
+        loggedInUser={loggedInUser}
+        onClose={() => setProfileUser(null)}
       />
     </div>
   );

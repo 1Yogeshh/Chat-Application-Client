@@ -1,31 +1,33 @@
-export default function ProfileActions({ isOwn }) {
+const ProfileActions = ({ isOwn }) => {
   if (isOwn) {
     return (
-      <div className="px-6 pb-6 flex gap-4">
-        <Action text="Edit Profile" />
-        <Action text="Settings" />
+      <div className="mt-6 px-6 flex gap-4">
+        <Action label="Settings" />
+        <Action label="Logout" />
       </div>
     );
   }
 
   return (
-    <div className="px-6 pb-6 flex gap-4">
-      <Action text="Message" primary />
-      <Action text="Add Friend" />
+    <div className="mt-6 px-6 flex gap-4">
+      <Action label="Message" primary />
+      <Action label="Block" />
     </div>
   );
-}
+};
 
-function Action({ text, primary }) {
+function Action({ label, primary }) {
   return (
     <button
-      className={`px-5 py-2 rounded-lg text-sm ${
+      className={`rounded-lg px-5 py-2 text-sm ${
         primary
           ? "bg-[#4F46E5] text-white"
           : "border text-gray-700"
       }`}
     >
-      {text}
+      {label}
     </button>
   );
 }
+
+export default ProfileActions;

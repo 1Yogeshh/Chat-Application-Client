@@ -1,8 +1,8 @@
-export default function ProfileInfo() {
+const ProfileInfo = ({ user }) => {
   return (
-    <div className="mt-20 px-6 pb-6">
-      <p className="text-gray-700 mb-6">
-        Full-stack developer | Building chat apps & scalable systems 🚀
+    <div className="mt-16 px-6">
+      <p className="mb-6 text-sm text-gray-700">
+        Full-stack dev | Building chat apps 🚀
       </p>
 
       <div className="flex gap-6 text-sm">
@@ -12,7 +12,7 @@ export default function ProfileInfo() {
       </div>
     </div>
   );
-}
+};
 
 function Stat({ label, value }) {
   return (
@@ -22,3 +22,5 @@ function Stat({ label, value }) {
     </div>
   );
 }
+
+export default ProfileInfo;
