@@ -13,6 +13,19 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+// REGISTER
+export const registerUser = createAsyncThunk(
+    "auth/register",
+    async (payload, { rejectWithValue }) => {
+        try {
+            const res = await registerAPI(payload);
+            return res.data;
+        } catch (err) {
+            return rejectWithValue(err.response?.data || "Register failed");
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -45,6 +58,18 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
+
+            //register
+            .addCase(registerUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(registerUser.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
     }
 })
 

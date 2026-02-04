@@ -1,7 +1,25 @@
 import { Mail, Lock, EyeOff } from "lucide-react";
 import InputField from "./InputField";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { registerAPI } from "../../api/auth.api";
 
 export default function RegisterForm() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target)
+
+        dispatch(
+            registerAPI({
+                email: form.get("email"),
+                password: form.get("password")
+            })
+        )
+    }
+
     return (
         <div className="w-full max-w-lg text-center space-y-6">
             <div>
@@ -13,9 +31,10 @@ export default function RegisterForm() {
                 </p>
             </div>
 
-            <form className="space-y-6 mt-10">
+            <form onSubmit={handleSubmit} className="space-y-6 mt-10">
                 <InputField
                     label="Email"
+                    name="email"
                     id="email"
                     type="email"
                     placeholder="example@gmail.com"
@@ -24,6 +43,7 @@ export default function RegisterForm() {
 
                 <InputField
                     label="Password"
+                    name="password"
                     id="password"
                     type="password"
                     placeholder="••••••••"
@@ -33,9 +53,10 @@ export default function RegisterForm() {
 
                 <button
                     type="submit"
-                    className="w-full py-3 rounded-md font-semibold text-white bg-[#001121] hover:opacity-90 transition"
+                    disabled={loading}
+                    className="w-full py-3 rounded-md font-semibold text-white bg-[#001121] hover:opacity-90 transition disabled:opacity-60"
                 >
-                    Create Account
+                    {loading ? "Signing in..." : "Sign in"}
                 </button>
             </form>
 
