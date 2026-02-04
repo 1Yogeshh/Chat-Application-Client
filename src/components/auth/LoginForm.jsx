@@ -1,7 +1,33 @@
 import { Mail, Lock, EyeOff } from "lucide-react";
 import InputField from "./InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../store/slices/authSlice"
 
 export default function LoginForm() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user, loading } = useSelector((s) => s.auth)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+
+        console.log(form.get("email"))
+        console.log(form.get("password"))
+
+        dispatch(
+            loginUser({
+                email: form.get("email"),
+                password: form.get("password")
+            })
+        )
+    }
+
+    if (user) {
+    }
+
+
     return (
         <div className="w-full max-w-lg text-center space-y-6">
             <div>
@@ -13,9 +39,10 @@ export default function LoginForm() {
                 </p>
             </div>
 
-            <form className="space-y-4 mt-10">
+            <form onSubmit={handleSubmit} className="space-y-4 mt-10">
                 <InputField
                     label="Email"
+                    name="email"
                     id="email"
                     type="email"
                     placeholder="example@gmail.com"
@@ -24,6 +51,7 @@ export default function LoginForm() {
 
                 <InputField
                     label="Password"
+                    name="password"
                     id="password"
                     type="password"
                     placeholder="••••••••"
@@ -42,10 +70,12 @@ export default function LoginForm() {
 
                 <button
                     type="submit"
-                    className="w-full py-3 rounded-md font-semibold text-white bg-[#001121] hover:opacity-90 transition"
+                    disabled={loading}
+                    className="w-full py-3 rounded-md font-semibold text-white bg-[#001121] hover:opacity-90 transition disabled:opacity-60"
                 >
-                    Sign in
+                    {loading ? "Signing in..." : "Sign in"}
                 </button>
+
             </form>
 
             <p className="text-md text-gray-600 mt-6">
