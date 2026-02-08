@@ -13,6 +13,18 @@ export const createUser = createAsyncThunk(
     }
 )
 
+export const fetchMyProfile = createAsyncThunk(
+    "user/fetchMe",
+    async (_, { rejectWithValue }) => {
+        try {
+            const res = await getMyProfileAPI();
+            return res.data;
+        } catch (error) {
+            rejectWithValue(error.response?.data)
+        }
+    }
+)
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
