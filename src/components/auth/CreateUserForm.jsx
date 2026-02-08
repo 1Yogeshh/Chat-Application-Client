@@ -2,14 +2,32 @@ import { Mail, User } from "lucide-react";
 import InputField from "./InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../store/slices/user.Slice"
 
 export default function CreateUserForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { loading } = useSelector((s) => s.user);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+
+        dispatch(
+            createUser({
+                name: form.get("name"),
+                username: form.get("username")
+            })
+        ).then((res) => {
+            if (res.meta.requestStatus === "fulfilled") {
+                navigate("/chat")
+            }
+        })
+    }
     return (
         <form
             className="w-full max-w-lg space-y-6 text-center"
+            onSubmit={handleSubmit}
         >
             <div>
                 <h1 className="text-xl font-bold text-gray-900 mb-2">
@@ -42,6 +60,7 @@ export default function CreateUserForm() {
             {/* NAME */}
             <InputField
                 label="Full Name"
+                name="name"
                 id="name"
                 type="text"
                 placeholder="John Doe"
@@ -51,6 +70,7 @@ export default function CreateUserForm() {
             {/* USERNAME */}
             <InputField
                 label="Username"
+                name="username"
                 id="username"
                 type="text"
                 placeholder="john_doe"
