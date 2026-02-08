@@ -1,7 +1,12 @@
 import { Mail, User } from "lucide-react";
 import InputField from "./InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateUserForm() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { loading } = useSelector((s) => s.user);
     return (
         <form
             className="w-full max-w-lg space-y-6 text-center"
