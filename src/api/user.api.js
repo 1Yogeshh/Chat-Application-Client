@@ -5,5 +5,5 @@ export const createUserAPI = (data) => {
 }
 
 export const getMyProfileAPI = () => {
-    return api.get("/getProfile");
+    return api.get("/myprofile");
 }

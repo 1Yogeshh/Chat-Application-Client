@@ -18,9 +18,10 @@ export const fetchMyProfile = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await getMyProfileAPI();
+            console.log(res)
             return res.data;
         } catch (error) {
-            rejectWithValue(error.response?.data)
+            return rejectWithValue(error.response?.data)
         }
     }
 )
@@ -56,9 +57,23 @@ const userSlice = createSlice({
             })
 
             // FETCH PROFILE
+            // 🔹 fetch profile failed (profile NOT exists → 404)
             .addCase(fetchMyProfile.fulfilled, (state, action) => {
                 state.profile = action.payload;
                 state.profileLoaded = true;
+                state.error = null;
+            })
+            .addCase(fetchMyProfile.rejected, (state, action) => {
+                // ⚠️ 404 = profile not created yet (valid case)
+                if (action.payload?.statusCode === 404) {
+                    state.profile = null;
+                    state.profileLoaded = true; // 🔥 THIS IS THE KEY
+                    state.error = null;
+                } else {
+                    // real error
+                    state.error = action.payload;
+                    state.profileLoaded = true;
+                }
             });
     }
 })

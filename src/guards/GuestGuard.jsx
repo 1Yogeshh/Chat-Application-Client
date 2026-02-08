@@ -10,14 +10,15 @@ const GuestGuard = ({ children }) => {
         return null; // ya loader
     }
 
-    if (token) {
-        return <Navigate to="/create-user" replace />;
+    if (token && profile) {
+        return <Navigate to="/chat" replace />;
     }
 
     // ✅ logged in + profile missing → create-user
     if (token && !profile) {
         return <Navigate to="/create-user" replace />;
     }
+
 
     return children;
 };

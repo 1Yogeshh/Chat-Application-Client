@@ -5,53 +5,57 @@ import CreateUser from "./pages/CreateUser";
 import ChatPage from "./pages/Chat";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
+import AppInitializer from "./guards/AppInitializer";
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
+  return (
+    <BrowserRouter>
+      {/* 🔥 APP BOOTSTRAP – RUNS FIRST */}
+      <AppInitializer>
+        <Routes>
 
-                {/* GUEST ONLY */}
-                <Route
-                    path="/login"
-                    element={
-                        <GuestGuard>
-                            <Login />
-                        </GuestGuard>
-                    }
-                />
+          {/* GUEST ONLY */}
+          <Route
+            path="/login"
+            element={
+              <GuestGuard>
+                <Login />
+              </GuestGuard>
+            }
+          />
 
-                <Route
-                    path="/register"
-                    element={
-                        <GuestGuard>
-                            <Register />
-                        </GuestGuard>
-                    }
-                />
+          <Route
+            path="/register"
+            element={
+              <GuestGuard>
+                <Register />
+              </GuestGuard>
+            }
+          />
 
-                {/* AUTH REQUIRED */}
-                <Route
-                    path="/create-user"
-                    element={
-                        <AuthGuard>
-                            <CreateUser />
-                        </AuthGuard>
-                    }
-                />
+          {/* AUTH REQUIRED */}
+          <Route
+            path="/create-user"
+            element={
+              <AuthGuard>
+                <CreateUser />
+              </AuthGuard>
+            }
+          />
 
-                <Route
-                    path="/chat"
-                    element={
-                        <AuthGuard>
-                            <ChatPage />
-                        </AuthGuard>
-                    }
-                />
+          <Route
+            path="/chat"
+            element={
+              <AuthGuard>
+                <ChatPage />
+              </AuthGuard>
+            }
+          />
 
-            </Routes>
-        </BrowserRouter>
-    );
+        </Routes>
+      </AppInitializer>
+    </BrowserRouter>
+  );
 }
 
 export default App;
