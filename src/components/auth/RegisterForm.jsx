@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Mail, Lock, EyeOff } from "lucide-react";
 import InputField from "./InputField";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +8,7 @@ import { registerUser } from "../../store/slices/authSlice";
 export default function RegisterForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { user, loading } = useSelector((s) => s.auth)
+    const { registerSuccess, loading } = useSelector((s) => s.auth)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +21,12 @@ export default function RegisterForm() {
             })
         )
     }
+
+    useEffect(() => {
+        if (registerSuccess) {
+            navigate("/login")
+        }
+    }, [registerSuccess, navigate])
 
     return (
         <div className="w-full max-w-lg text-center space-y-6" >
@@ -61,7 +68,7 @@ export default function RegisterForm() {
 
             <p className="text-md text-gray-600 mt-6" >
                 You have already account ? {" "}
-                <a href="#"
+                <a href="/login"
                     className="font-medium text-gray-900 underline" >
                     Login
                 </a>

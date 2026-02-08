@@ -34,6 +34,7 @@ const authSlice = createSlice({
         refreshToken: null,
         loading: false,
         error: null,
+        registerSuccess: false
     },
     reducers: {
         Logout: (state) => {
@@ -65,14 +66,18 @@ const authSlice = createSlice({
             //register
             .addCase(registerUser.pending, (state) => {
                 state.loading = true;
+                state.registerSuccess = false;
             })
+
             .addCase(registerUser.fulfilled, (state) => {
                 state.loading = false;
+                state.registerSuccess = true; // 👈 ONLY THIS
             })
+
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            });
+            })
     }
 })
 

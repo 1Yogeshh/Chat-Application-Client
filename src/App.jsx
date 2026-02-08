@@ -1,30 +1,57 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
-import ChatPage from "./pages/Chat"
-import CreateUser from "./pages/CreateUser"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CreateUser from "./pages/CreateUser";
+import ChatPage from "./pages/Chat";
+import AuthGuard from "./guards/AuthGuard";
+import GuestGuard from "./guards/GuestGuard";
 
 function App() {
     return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Navigate to="/chat" />} />
+        <BrowserRouter>
+            <Routes>
 
-                    {/* AUTH */}
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/create-user" element={<CreateUser />} />
+                {/* GUEST ONLY */}
+                <Route
+                    path="/login"
+                    element={
+                        <GuestGuard>
+                            <Login />
+                        </GuestGuard>
+                    }
+                />
 
-                    {/* MAIN APP */}
-                    <Route path="/chat" element={<ChatPage />} />
+                <Route
+                    path="/register"
+                    element={
+                        <GuestGuard>
+                            <Register />
+                        </GuestGuard>
+                    }
+                />
 
-                    {/* FALLBACK */}
-                    <Route path="*" element={<Navigate to="/chat" />} />
-                </Routes>
-            </BrowserRouter>
-        </>
-    )
+                {/* AUTH REQUIRED */}
+                <Route
+                    path="/create-user"
+                    element={
+                        <AuthGuard>
+                            <CreateUser />
+                        </AuthGuard>
+                    }
+                />
+
+                <Route
+                    path="/chat"
+                    element={
+                        <AuthGuard>
+                            <ChatPage />
+                        </AuthGuard>
+                    }
+                />
+
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
-export default App
+export default App;

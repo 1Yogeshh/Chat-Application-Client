@@ -3,6 +3,7 @@ import InputField from "./InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/slices/authSlice"
+import { useEffect } from "react";
 
 export default function LoginForm() {
     const dispatch = useDispatch();
@@ -24,8 +25,11 @@ export default function LoginForm() {
         )
     }
 
-    if (user) {
-    }
+    useEffect(()=>{
+        if(user){
+            navigate("/create-user")
+        }
+    },[user, navigate])
 
 
     return (
@@ -80,7 +84,7 @@ export default function LoginForm() {
 
             <p className="text-md text-gray-600 mt-6">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="font-medium text-gray-900 underline">
+                <a href="/register" className="font-medium text-gray-900 underline">
                     Create Account
                 </a>
             </p>
