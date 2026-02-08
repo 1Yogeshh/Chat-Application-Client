@@ -1,6 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserAPI, getMyProfileAPI } from "../../api/user.api"
 
+export const createUser = createAsyncThunk(
+    "user/create",
+    async (payload, { rejectWithValue }) => {
+        try {
+            const res = await createUserAPI(payload);
+            return res.data.user;
+        } catch (error) {
+            return rejectWithValue(error.response?.data);
+        }
+    }
+)
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
