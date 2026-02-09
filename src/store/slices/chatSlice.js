@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     getMyChatsAPI,
     getMessagesAPI,
     sendMessageAPI,
 } from "../../api/chat.api";
 
-// 🔹 Fetch chat list
+// fetch chat list
 export const fetchChats = createAsyncThunk(
     "chat/fetchChats",
     async (_, { rejectWithValue }) => {
@@ -18,13 +18,26 @@ export const fetchChats = createAsyncThunk(
     }
 );
 
-// 🔹 Fetch messages
+// fetch messages
 export const fetchMessages = createAsyncThunk(
     "chat/fetchMessages",
     async (chatId, { rejectWithValue }) => {
         try {
             const res = await getMessagesAPI(chatId);
             return { chatId, messages: res.data };
+        } catch (e) {
+            return rejectWithValue(e.response?.data);
+        }
+    }
+);
+
+// send message
+export const sendMessage = createAsyncThunk(
+    "chat/sendMessage",
+    async (payload, { rejectWithValue }) => {
+        try {
+            const res = await sendMessageAPI(payload);
+            return res.data;
         } catch (e) {
             return rejectWithValue(e.response?.data);
         }
@@ -45,8 +58,11 @@ const chatSlice = createSlice({
         },
         addMessage: (state, action) => {
             const { chatId, message } = action.payload;
-            state.messages[chatId]?.push(message);
-        }
+            if (!state.messages[chatId]) {
+                state.messages[chatId] = [];
+            }
+            state.messages[chatId].push(message);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -57,8 +73,8 @@ const chatSlice = createSlice({
                 state.messages[action.payload.chatId] =
                     action.payload.messages;
             });
-    }
-})
+    },
+});
 
 export const { setActiveChat, addMessage } = chatSlice.actions;
 export default chatSlice.reducer;
