@@ -11,6 +11,7 @@ export const fetchChats = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await getMyChatsAPI();
+            console.log(res.data)
             return res.data;
         } catch (e) {
             return rejectWithValue(e.response?.data);

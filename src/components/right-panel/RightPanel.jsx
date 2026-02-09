@@ -1,66 +1,77 @@
-import { MessageSquare, PenLine, Pin, Search } from "lucide-react";
+import { MessageSquare, PenLine, Search } from "lucide-react";
 import ChatListItem from "./ChatListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchChats, setActiveChat } from "../../store/slices/chatSlice";
 
 const RightPanel = () => {
+  const dispatch = useDispatch();
+  const { chats, activeChatId } = useSelector((s) => s.chat);
+
+  useEffect(() => {
+    dispatch(fetchChats());
+  }, [dispatch]);
+
   return (
     <div className="w-80 bg-white p-6 overflow-y-auto rounded-[30px]">
+      {/* HEADER */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Messages</h2>
-        <div className="p-2 rounded-lg">
+        <button className="p-2 rounded-lg hover:bg-gray-100">
           <PenLine size={18} />
-        </div>
+        </button>
       </div>
 
+      {/* SEARCH */}
       <div className="mb-6">
-        <div className="flex justify-between items-center mb-6 bg-gray-100 p-1 rounded-lg">
-          <input type="text" placeholder="Search or start of message" className="w-[85%] p-2 outline-none" />
-          <div className="p-2 rounded-lg">
-            <Search size={18} />
-          </div>
+        <div className="flex items-center bg-gray-100 p-1 rounded-lg">
+          <input
+            type="text"
+            placeholder="Search or start a message"
+            className="flex-1 p-2 bg-transparent outline-none text-sm"
+          />
+          <Search size={18} className="mx-2 text-gray-500" />
         </div>
       </div>
 
-      <div className="space-y-6">
-        <section>
-          <div className="flex gap-2 align-center">
-            <Pin size={18} />
-            <h4 className="text-xs font-bold text-black uppercase mb-4">
-              Pinned Chats
-            </h4>
-          </div>
-          <ChatListItem
-            name="George Lobko"
-            msg="Thanks for the quick response"
-            time="09:41"
-          />
-          <ChatListItem
-            name="Amelia Korns"
-            msg="I'm stuck in traffic..."
-            time="21:25"
-            badge="2"
-          />
-        </section>
+      {/* ALL CHATS */}
+      <section>
+        <div className="flex gap-2 items-center mb-4">
+          <MessageSquare size={18} />
+          <h4 className="text-xs font-bold text-black uppercase">
+            All Chats
+          </h4>
+        </div>
 
-        <section>
-          <div className="flex gap-2 align-center">
-            <MessageSquare size={18} />
-            <h4 className="text-xs font-bold text-black uppercase mb-4">
-              All Chats
-            </h4>
+        {/* ✅ EMPTY STATE */}
+        {chats.length === 0 && (
+          <div className="text-center text-gray-500 text-sm mt-10">
+            <p>No chats yet</p>
+            <p className="text-xs text-gray-400 mt-1">
+              Start a new conversation
+            </p>
           </div>
+        )}
+
+        {/* ✅ REAL CHAT LIST */}
+        {chats.map((chat) => (
           <ChatListItem
-            name="Nixtio Team"
-            msg="Daniel is typing..."
-            time="12:13"
-            active
+            key={chat.id}
+            name={chat.otherUser?.name ?? "Unknown"}
+            msg={chat.lastMessage?.content ?? "No messages yet"}
+            time={
+              chat.lastMessage?.createdAt
+                ? new Date(chat.lastMessage.createdAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+                : ""
+            }
+            active={activeChatId === chat.id}
+            onClick={() => dispatch(setActiveChat(chat.id))}
           />
-          <ChatListItem
-            name="Anatoly Ferusso"
-            msg="Sorry for the delay..."
-            time="11:53"
-          />
-        </section>
-      </div>
+        ))}
+      </section>
     </div>
   );
 };

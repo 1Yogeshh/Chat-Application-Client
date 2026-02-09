@@ -1,10 +1,10 @@
 import api from "./axios";
 
 export const getMyChatsAPI = () => {
-    return api.get("/chats");
+    return api.get("/api/chats");
 }
 
-export const getMessageAPI = (chatId) => {
+export const getMessagesAPI = (chatId) => {
     return api.get(`/chats/${chatId}/messages`);
 }
 

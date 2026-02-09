@@ -9,6 +9,7 @@ export default function LoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user, loading } = useSelector((s) => s.auth)
+    const { profile } = useSelector((s) => s.user)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,11 +26,14 @@ export default function LoginForm() {
         )
     }
 
-    useEffect(()=>{
-        if(user){
+    useEffect(() => {
+        if (profile) {
+            navigate("/chat")
+        }
+        else if (user) {
             navigate("/create-user")
         }
-    },[user, navigate])
+    }, [user, navigate, profile])
 
 
     return (
