@@ -4,9 +4,11 @@ const ChatListItem = ({
   time,
   badge,
   active = false,
+  onClick
 }) => {
   return (
     <div
+      onClick={onClick}
       className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition ${active
         ? "bg-[#F4F3F8] border border-gray-100"
         : "hover:bg-gray-50"

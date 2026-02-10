@@ -1,6 +1,8 @@
 import { Star, Search, Video, Phone } from "lucide-react";
 
-const ChatHeader = () => {
+const ChatHeader = ({ user }) => {
+  if (!user) return null;
+
   return (
     <header className="flex items-center justify-between border-b px-8 py-4">
       <div className="flex items-center gap-3">
@@ -15,7 +17,7 @@ const ChatHeader = () => {
         </div>
         <div>
           <h3 className="text-sm font-bold text-gray-800">
-            Nixtio Team
+            {user.name} ({user.username})
           </h3>
           <p className="text-xs text-[#4ADE80] font-medium">
             +6 Online

@@ -25,6 +25,7 @@ export const fetchMessages = createAsyncThunk(
     async (chatId, { rejectWithValue }) => {
         try {
             const res = await getMessagesAPI(chatId);
+            console.log(res)
             return { chatId, messages: res.data };
         } catch (e) {
             return rejectWithValue(e.response?.data);
@@ -36,8 +37,10 @@ export const fetchMessages = createAsyncThunk(
 export const sendMessage = createAsyncThunk(
     "chat/sendMessage",
     async (payload, { rejectWithValue }) => {
+         console.log("🔥 sendMessage THUNK CALLED", payload);
         try {
             const res = await sendMessageAPI(payload);
+            console.log(res)
             return res.data;
         } catch (e) {
             return rejectWithValue(e.response?.data);
@@ -73,8 +76,18 @@ const chatSlice = createSlice({
             .addCase(fetchMessages.fulfilled, (state, action) => {
                 state.messages[action.payload.chatId] =
                     action.payload.messages;
+            })
+            .addCase(sendMessage.fulfilled, (state, action) => {
+                const msg = action.payload;
+                const chatId = msg.chatId;
+
+                if (!state.messages[chatId]) {
+                    state.messages[chatId] = [];
+                }
+
+                state.messages[chatId].push(msg);
             });
-    },
+},
 });
 
 export const { setActiveChat, addMessage } = chatSlice.actions;

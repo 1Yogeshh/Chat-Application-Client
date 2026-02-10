@@ -5,9 +5,10 @@ export const getMyChatsAPI = () => {
 }
 
 export const getMessagesAPI = (chatId) => {
-    return api.get(`/chats/${chatId}/messages`);
+    console.log(chatId)
+    return api.get(`/api/chat/${chatId}`);
 }
 
 export const sendMessageAPI = (data) => {
-    return api.post("/mesages", data);
+    return api.post("/api/chat/send", data);
 }
