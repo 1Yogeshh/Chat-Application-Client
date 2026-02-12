@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const ChatLayout = () => {
     const { activeChatId, chats } = useSelector((s) => s.chat)
 
-    // ❌ No chat selected
     if (!activeChatId) {
         return (
             <div className="flex flex-1 items-center justify-center text-gray-400" >
