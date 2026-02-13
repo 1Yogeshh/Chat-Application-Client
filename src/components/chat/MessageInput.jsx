@@ -10,14 +10,12 @@ const MessageInput = ({ chatId }) => {
   const handleSend = () => {
     console.log("CLICK SEND", chatId, text);
     if (!text.trim()) return;
-
     dispatch(
       sendMessage({
         chatId,
         content: text,
       })
     )
-
     setText("")
   }
   return (

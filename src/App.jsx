@@ -10,7 +10,6 @@ import AppInitializer from "./guards/AppInitializer";
 function App() {
   return (
     <BrowserRouter>
-      {/* 🔥 APP BOOTSTRAP – RUNS FIRST */}
       <AppInitializer>
         <Routes>
 
