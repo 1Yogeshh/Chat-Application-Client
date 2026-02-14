@@ -57,7 +57,6 @@ export default function CreateUserForm() {
                 </div>
             </div>
 
-            {/* NAME */}
             <InputField
                 label="Full Name"
                 name="name"
@@ -67,7 +66,6 @@ export default function CreateUserForm() {
                 Icon={User}
             />
 
-            {/* USERNAME */}
             <InputField
                 label="Username"
                 name="username"
