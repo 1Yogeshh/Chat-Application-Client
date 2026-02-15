@@ -8,8 +8,10 @@ import {
   User
 } from "lucide-react";
 import NavItem from "./NavItem";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ onProfileClick }) => {
+  const { profile } = useSelector((s) => s.user)
   return (
     <div className="flex w-64 flex-col bg-[#1A0B2E] rounded-[30px] p-8 text-white/60">
       <div className="mb-12 flex items-center gap-2 text-2xl font-bold text-white">
@@ -41,9 +43,9 @@ const Sidebar = ({ onProfileClick }) => {
         />
         <div>
           <p className="text-sm font-semibold text-white">
-            Jordan Betord
+            {profile.name}
           </p>
-          <p className="text-xs text-white/40">@jordan.b_uxui</p>
+          <p className="text-xs text-white/40">@{profile.username}</p>
         </div>
       </div>
     </div>
