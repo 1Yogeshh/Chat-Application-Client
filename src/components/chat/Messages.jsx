@@ -10,10 +10,11 @@ const Messages = ({ chatId }) => {
     (s) => s.chat.messages[chatId] || []
   );
 
+  console.log("messages: ", messages)
+
   const myAuthUserId = useSelector(
     (s) => s.user.profile.authUserId
   );
-  console.log(myAuthUserId)
 
   useEffect(() => {
     dispatch(fetchMessages(chatId));
@@ -31,6 +32,7 @@ const Messages = ({ chatId }) => {
             name={msg.sender?.name}
             avatar={msg.sender?.avatar}
             sender={msg.sender}
+            status= {msg.status}
             message={msg.content}
             time={new Date(msg.createdAt).toLocaleTimeString([], {
               hour: "2-digit",

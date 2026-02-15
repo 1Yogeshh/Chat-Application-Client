@@ -1,3 +1,5 @@
+import { Check, CheckCheck } from "lucide-react";
+
 const MessageBubble = ({
   type,
   name,
@@ -6,6 +8,7 @@ const MessageBubble = ({
   time,
   sender,
   onUserClick,
+  status
 }) => {
   if (type === "received") {
     return (
@@ -41,7 +44,22 @@ const MessageBubble = ({
       <div className="bg-[#D1FADF] p-4 rounded-2xl rounded-tr-none text-sm font-medium shadow-sm">
         {message}
       </div>
-      <span className="text-[10px] text-gray-400">{time}</span>
+      <div className="flex items-center gap-1 text-[10px] text-gray-400">
+        <span>{time}</span>
+
+        {/* 🔥 STATUS TICK */}
+        {status === "SENT" && (
+          <Check size={14} className="text-gray-400" />
+        )}
+
+        {status === "DELIVERED" && (
+          <CheckCheck size={14} className="text-gray-400" />
+        )}
+
+        {status === "SEEN" && (
+          <CheckCheck size={14} className="text-blue-500" />
+        )}
+      </div>
     </div>
   );
 };
