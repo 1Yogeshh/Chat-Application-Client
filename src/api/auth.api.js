@@ -5,5 +5,5 @@ export const loginAPI = (data) => {
 }
 
 export const registerAPI = (data) => {
-    return api.post("/register", data)
+    return api.post("/api/auth/register", data)
 }

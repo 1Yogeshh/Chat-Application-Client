@@ -16,6 +16,8 @@ const ChatLayout = ({ onUserClick }) => {
 
     const currentChat = chats.find(c => c.id === activeChatId);
 
+
+
     return (
         <div className="flex flex-1 flex-col bg-[#F4F3F8] rounded-[30px]" >
             <ChatHeader onUserClick={onUserClick} user={currentChat?.otherUser} />

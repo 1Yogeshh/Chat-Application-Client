@@ -3,23 +3,36 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendMessage } from "../../store/slices/chatSlice";
 import { getSocket } from "../../socket/socket";
+import { useSelector } from "react-redux";
 
 const MessageInput = ({ chatId }) => {
   const [text, setText] = useState("")
   const dispatch = useDispatch();
+
+  const { chats, activeChatId } = useSelector((s) => s.chat);
+
+  const currentChat = chats.find(c => c.id === activeChatId);
+  const receiverId = currentChat?.otherUser?.authUserId;
 
   const handleSend = () => {
     console.log("CLICK SEND", chatId, text);
     if (!text.trim()) return;
 
     const socket = getSocket();
-    
-    dispatch(
-      sendMessage({
-        chatId,
-        content: text,
-      })
-    )
+
+    // dispatch(
+    //   sendMessage({
+    //     chatId,
+    //     content: text,
+    //   })
+    // )
+
+    socket.emit("send-message", {
+      chatId,
+      content: text,
+      receiverId,
+    });
+
     setText("")
   }
   return (

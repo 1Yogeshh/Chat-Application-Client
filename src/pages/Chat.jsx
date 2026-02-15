@@ -7,6 +7,7 @@ import ProfileModal from "../components/profile/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { connectSocket, getSocket, disconnectSocket } from "../socket/socket"
 import { useEffect } from "react";
+import { addMessage, updateSeen } from "../store/slices/chatSlice";
 
 const ChatPage = () => {
   const { profile } = useSelector((s) => s.user)
@@ -38,7 +39,7 @@ const ChatPage = () => {
       socket.off("message-seen");
       disconnectSocket();
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="relative flex h-screen w-full p-8 font-sans overflow-hidden">

@@ -79,11 +79,39 @@ const chatSlice = createSlice({
         },
         addMessage: (state, action) => {
             const { chatId, message } = action.payload;
+
             if (!state.messages[chatId]) {
                 state.messages[chatId] = [];
             }
+
             state.messages[chatId].push(message);
+
+            // 🔥 Update last message in chat list
+            const chatIndex = state.chats.findIndex(c => c.id === chatId);
+
+            if (chatIndex !== -1) {
+                const chat = state.chats[chatIndex];
+
+                chat.lastMessage = message;
+
+                // 🔥 Move chat to top
+                state.chats.splice(chatIndex, 1);
+                state.chats.unshift(chat);
+            }
         },
+        updateSeen: (state, action) => {
+            const { chatId, lastSeenMessageId } = action.payload;
+
+            const msgs = state.messages[chatId];
+            if (!msgs) return;
+
+            msgs.forEach(msg => {
+                if (msg.id === lastSeenMessageId) {
+                    msg.status = "SEEN";
+                }
+            });
+        }
+
     },
     extraReducers: (builder) => {
         builder
@@ -134,5 +162,5 @@ const chatSlice = createSlice({
     },
 });
 
-export const { setActiveChat, addMessage } = chatSlice.actions;
+export const { setActiveChat, addMessage, updateSeen } = chatSlice.actions;
 export default chatSlice.reducer;
