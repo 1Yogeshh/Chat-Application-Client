@@ -4,7 +4,7 @@ import RightPanel from "../components/right-panel/RightPanel";
 import AnimatedBackground from "../components/background/AnimatedBackground";
 import { useState } from "react";
 import ProfileModal from "../components/profile/ProfileModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ChatPage = () => {
   const loggedInUser = {
@@ -14,7 +14,6 @@ const ChatPage = () => {
     avatar: "https://i.pravatar.cc/150?img=12",
   };
 
-  const dispatch = useDispatch()
   const { profile } = useSelector((s) => s.user)
 
   const [profileUser, setProfileUser] = useState(null);
