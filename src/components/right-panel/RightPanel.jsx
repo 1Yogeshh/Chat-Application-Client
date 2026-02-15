@@ -25,8 +25,13 @@ const RightPanel = () => {
   }, [search, dispatch]);
 
   //start private chat
-  const handleStartChat = (authUserId) => {
-    dispatch(startPrivateChat(authUserId));
+  const handleStartChat = (user) => {
+    dispatch(
+      startPrivateChat({
+        otherUserId: user.authUserId,
+        userData: user
+      })
+    );
     setSearch("");
     dispatch(clearSearch());
   }
@@ -63,7 +68,7 @@ const RightPanel = () => {
               searchResults.map((user) => (
                 <div
                   key={user.authUserId}
-                  onClick={() => handleStartChat(user.authUserId)}
+                  onClick={() => handleStartChat(user)}
                   className="flex items-center gap-3 p-3 cursor-pointer transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
                 >
                   {/* Avatar */}

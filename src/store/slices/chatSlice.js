@@ -49,18 +49,21 @@ export const sendMessage = createAsyncThunk(
     }
 );
 
-// start private chat
 export const startPrivateChat = createAsyncThunk(
     "chat/startPrivate",
-    async (otherUserId, { rejectWithValue }) => {
+    async ({ otherUserId, userData }, { rejectWithValue }) => {
         try {
             const res = await startPrivateChatAPI(otherUserId);
-            return res.data.chat;
-        } catch (error) {
-            return rejectWithValue(error.response?.data);
+            return {
+                ...res.data.chat,
+                _userData: userData
+            };
+        } catch (e) {
+            return rejectWithValue(e.response?.data);
         }
     }
-)
+);
+
 
 const chatSlice = createSlice({
     name: "chat",
@@ -100,20 +103,35 @@ const chatSlice = createSlice({
                 }
 
                 state.messages[chatId].push(msg);
+
+                // 2️⃣ update last message in chat list
+                const chat = state.chats.find(c => c.id === chatId);
+                if (chat) {
+                    chat.lastMessage = msg;
+                }
+
+                // 3️⃣ move chat to top (like WhatsApp)
+                state.chats = [
+                    chat,
+                    ...state.chats.filter(c => c.id !== chatId)
+                ];
             })
             .addCase(startPrivateChat.fulfilled, (state, action) => {
                 const chat = action.payload;
 
-                // agar already exist nahi hai to list me add karo
-                if (!state.chats.find((c) => c.id === chat.id)) {
-                    state.chats.unshift(chat);
+                const existing = state.chats.find(c => c.id === chat.id);
+
+                if (!existing) {
+                    state.chats.unshift({
+                        ...chat,
+                        otherUser: chat._userData, // ✅ correct
+                        lastMessage: null
+                    });
                 }
 
-                // active chat set karo
                 state.activeChatId = chat.id;
             });
-
-},
+    },
 });
 
 export const { setActiveChat, addMessage } = chatSlice.actions;
