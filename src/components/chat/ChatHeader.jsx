@@ -5,7 +5,7 @@ const ChatHeader = ({ onUserClick, user }) => {
   if (!user) return null;
 
   const handleProfileOpen = () => {
-    onUserClick?.(user);   // ✅ PASS USER HERE
+    onUserClick?.(user);   
   };
 
   return (
