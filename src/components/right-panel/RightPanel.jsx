@@ -3,7 +3,7 @@ import ChatListItem from "./ChatListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchChats, setActiveChat, startPrivateChat } from "../../store/slices/chatSlice";
-import { searchUsers } from "../../store/slices/user.Slice";
+import { searchUsers, clearSearch } from "../../store/slices/user.Slice";
 
 const RightPanel = () => {
   const dispatch = useDispatch();
@@ -53,22 +53,36 @@ const RightPanel = () => {
           <Search size={18} className="mx-2 text-gray-500" />
         </div>
         {/* 🔥 SEARCH RESULTS DROPDOWN */}
-        {searchResults.length > 0 && (
-          <div className="absolute top-14 left-0 right-0 bg-white shadow-lg rounded-xl max-h-60 overflow-y-auto z-50 border">
-            {searchResults.map((user) => (
-              <div
-                key={user.authUserId}
-                onClick={() => handleStartChat(user.authUserId)}
-                className="p-3 hover:bg-gray-100 cursor-pointer border-b last:border-none"
-              >
-                <p className="font-semibold text-sm">
-                  {user.name}
-                </p>
-                <p className="text-xs text-gray-500">
-                  @{user.username}
-                </p>
+        {search.length > 1 && (
+          <div className=" top-14 left-0 right-0 bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl max-h-72 overflow-y-auto z-50 border border-gray-100">
+            {searchResults.length === 0 ? (
+              <div className="p-6 text-center text-gray-400 text-sm">
+                No users found
               </div>
-            ))}
+            ) : (
+              searchResults.map((user) => (
+                <div
+                  key={user.authUserId}
+                  onClick={() => handleStartChat(user.authUserId)}
+                  className="flex items-center gap-3 p-3 cursor-pointer transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
+                >
+                  {/* Avatar */}
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                    {user.name?.charAt(0).toUpperCase()}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex flex-col">
+                    <p className="text-sm font-semibold text-gray-800">
+                      {user.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      @{user.username}
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>

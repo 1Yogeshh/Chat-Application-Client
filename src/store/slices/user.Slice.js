@@ -51,6 +51,10 @@ const userSlice = createSlice({
         clearUser: (state) => {
             state.profile = null,
                 state.profileLoaded = false
+        },
+
+        clearSearch: (state) => {
+            state.searchResults = [];
         }
     },
     extraReducers: (builder) => {
@@ -94,5 +98,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { clearUser } = userSlice.actions;
+export const { clearUser, clearSearch } = userSlice.actions;
 export default userSlice.reducer;

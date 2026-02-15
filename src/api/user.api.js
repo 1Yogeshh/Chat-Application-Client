@@ -9,5 +9,5 @@ export const getMyProfileAPI = () => {
 }
 
 export const searchUserAPI = (query) => {
-    return api.get(`/api/user/search?query=${query}`);
+    return api.get(`/api/users/search?q=${query}`);
 }
