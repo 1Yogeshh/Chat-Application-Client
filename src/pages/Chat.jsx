@@ -7,17 +7,9 @@ import ProfileModal from "../components/profile/ProfileModal";
 import { useSelector } from "react-redux";
 
 const ChatPage = () => {
-  const loggedInUser = {
-    id: "1",
-    name: "Jordan Betord",
-    username: "jordan.b_uxui",
-    avatar: "https://i.pravatar.cc/150?img=12",
-  };
-
   const { profile } = useSelector((s) => s.user)
 
   const [profileUser, setProfileUser] = useState(null);
-
   return (
     <div className="relative flex h-screen w-full p-8 font-sans overflow-hidden">
       <AnimatedBackground />
