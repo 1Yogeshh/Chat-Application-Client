@@ -7,3 +7,7 @@ export const createUserAPI = (data) => {
 export const getMyProfileAPI = () => {
     return api.get("/api/users/myprofile");
 }
+
+export const searchUserAPI = (query) => {
+    return api.get(`/api/user/search?query=${query}`);
+}
