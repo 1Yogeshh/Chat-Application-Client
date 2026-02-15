@@ -1,4 +1,5 @@
 import { Star, Search, Video, Phone } from "lucide-react";
+import pic from "../../assets/blueBackground.png"
 
 const ChatHeader = ({ onUserClick, user }) => {
   if (!user) return null;
@@ -11,13 +12,10 @@ const ChatHeader = ({ onUserClick, user }) => {
     <header className="flex items-center justify-between border-b px-8 py-4">
       <div onClick={handleProfileOpen} className="flex items-center gap-3">
         <div className="flex -space-x-2">
-          {[1, 2, 3, 4].map((i) => (
-            <img
-              key={i}
-              src={`https://i.pravatar.cc/32?img=${i + 10}`}
-              className="h-8 w-8 rounded-full border-2 border-white"
-            />
-          ))}
+          <img
+            src={pic}
+            className="h-8 w-8 rounded-full border-2 border-white"
+          />
         </div>
         <div>
           <h3 className="text-sm font-bold text-gray-800">

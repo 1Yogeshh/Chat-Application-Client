@@ -4,8 +4,7 @@ import {
   Users,
   Star,
   Calendar,
-  FileText,
-  User
+  FileText
 } from "lucide-react";
 import NavItem from "./NavItem";
 import { useSelector } from "react-redux";
