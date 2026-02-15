@@ -4,12 +4,42 @@ import RightPanel from "../components/right-panel/RightPanel";
 import AnimatedBackground from "../components/background/AnimatedBackground";
 import { useState } from "react";
 import ProfileModal from "../components/profile/ProfileModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { connectSocket, getSocket, disconnectSocket } from "../socket/socket"
+import { useEffect } from "react";
 
 const ChatPage = () => {
   const { profile } = useSelector((s) => s.user)
 
   const [profileUser, setProfileUser] = useState(null);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const socket = connectSocket();
+
+    socket.on("connect", () => {
+      console.log("🟢 Connected:", socket.id);
+    });
+
+    socket.on("new-message", (message) => {
+      dispatch(addMessage({
+        chatId: message.chatId,
+        message,
+      }));
+    });
+
+    socket.on("message-seen", (data) => {
+      dispatch(updateSeen(data));
+    });
+
+    return () => {
+      socket.off("new-message");
+      socket.off("message-seen");
+      disconnectSocket();
+    };
+  }, []);
+
   return (
     <div className="relative flex h-screen w-full p-8 font-sans overflow-hidden">
       <AnimatedBackground />

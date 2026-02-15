@@ -2,6 +2,7 @@ import { Paperclip, Mic, Send } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendMessage } from "../../store/slices/chatSlice";
+import { getSocket } from "../../socket/socket";
 
 const MessageInput = ({ chatId }) => {
   const [text, setText] = useState("")
@@ -10,6 +11,9 @@ const MessageInput = ({ chatId }) => {
   const handleSend = () => {
     console.log("CLICK SEND", chatId, text);
     if (!text.trim()) return;
+
+    const socket = getSocket();
+    
     dispatch(
       sendMessage({
         chatId,
