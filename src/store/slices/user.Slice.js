@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserAPI, getMyProfileAPI } from "../../api/user.api"
+import { createUserAPI, getMyProfileAPI, searchUserAPI } from "../../api/user.api"
 
 export const createUser = createAsyncThunk(
     "user/create",
@@ -26,6 +26,18 @@ export const fetchMyProfile = createAsyncThunk(
     }
 )
 
+export const searchUsers = createAsyncThunk(
+    "user/search",
+    async (query, { rejectWithValue }) => {
+        try {
+            const res = await searchUserAPI(query);
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data);
+        }
+    }
+)
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -33,6 +45,7 @@ const userSlice = createSlice({
         loading: false,
         error: null,
         profileLoaded: false,
+        searchResults: []
     },
     reducers: {
         clearUser: (state) => {
@@ -57,7 +70,6 @@ const userSlice = createSlice({
             })
 
             // FETCH PROFILE
-            // 🔹 fetch profile failed (profile NOT exists → 404)
             .addCase(fetchMyProfile.fulfilled, (state, action) => {
                 state.profile = action.payload;
                 state.profileLoaded = true;
@@ -74,7 +86,11 @@ const userSlice = createSlice({
                     state.error = action.payload;
                     state.profileLoaded = true;
                 }
-            });
+            })
+
+            .addCase(searchUsers.fulfilled, (state, action) => {
+                state.searchResults = action.payload;
+            })
     }
 })
 
