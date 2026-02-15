@@ -1,11 +1,15 @@
 import { Star, Search, Video, Phone } from "lucide-react";
 
-const ChatHeader = ({ user }) => {
+const ChatHeader = ({ onUserClick, user }) => {
   if (!user) return null;
+
+  const handleProfileOpen = () => {
+    onUserClick?.(user);   // ✅ PASS USER HERE
+  };
 
   return (
     <header className="flex items-center justify-between border-b px-8 py-4">
-      <div className="flex items-center gap-3">
+      <div onClick={handleProfileOpen} className="flex items-center gap-3">
         <div className="flex -space-x-2">
           {[1, 2, 3, 4].map((i) => (
             <img

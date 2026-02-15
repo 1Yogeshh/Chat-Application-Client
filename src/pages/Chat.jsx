@@ -4,6 +4,7 @@ import RightPanel from "../components/right-panel/RightPanel";
 import AnimatedBackground from "../components/background/AnimatedBackground";
 import { useState } from "react";
 import ProfileModal from "../components/profile/ProfileModal";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatPage = () => {
   const loggedInUser = {
@@ -13,6 +14,9 @@ const ChatPage = () => {
     avatar: "https://i.pravatar.cc/150?img=12",
   };
 
+  const dispatch = useDispatch()
+  const { profile } = useSelector((s) => s.user)
+
   const [profileUser, setProfileUser] = useState(null);
 
   return (
@@ -21,7 +25,7 @@ const ChatPage = () => {
 
       <div className="flex w-full gap-4 overflow-hidden rounded-[40px]">
         {/* SIDEBAR → OWN PROFILE */}
-        <Sidebar onProfileClick={() => setProfileUser(loggedInUser)} />
+        <Sidebar onProfileClick={() => setProfileUser(profile)} />
 
         {/* CHAT → OTHER USERS */}
         <ChatLayout onUserClick={(user) => setProfileUser(user)} />
@@ -33,7 +37,7 @@ const ChatPage = () => {
       <ProfileModal
         open={!!profileUser}
         user={profileUser}
-        loggedInUser={loggedInUser}
+        loggedInUser={profile}
         onClose={() => setProfileUser(null)}
       />
     </div>
