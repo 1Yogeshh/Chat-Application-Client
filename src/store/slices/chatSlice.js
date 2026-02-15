@@ -3,6 +3,7 @@ import {
     getMyChatsAPI,
     getMessagesAPI,
     sendMessageAPI,
+    startPrivateChatAPI,
 } from "../../api/chat.api";
 
 // fetch chat list
@@ -37,7 +38,7 @@ export const fetchMessages = createAsyncThunk(
 export const sendMessage = createAsyncThunk(
     "chat/sendMessage",
     async (payload, { rejectWithValue }) => {
-         console.log("🔥 sendMessage THUNK CALLED", payload);
+        console.log("🔥 sendMessage THUNK CALLED", payload);
         try {
             const res = await sendMessageAPI(payload);
             console.log(res)
@@ -47,6 +48,19 @@ export const sendMessage = createAsyncThunk(
         }
     }
 );
+
+// start private chat
+export const startPrivateChat = createAsyncThunk(
+    "chat/startPrivate",
+    async (otherUserId, { rejectWithValue }) => {
+        try {
+            const res = await startPrivateChatAPI(otherUserId);
+            return res.data.chat;
+        } catch (error) {
+            return rejectWithValue(error.response?.data);
+        }
+    }
+)
 
 const chatSlice = createSlice({
     name: "chat",
@@ -86,7 +100,19 @@ const chatSlice = createSlice({
                 }
 
                 state.messages[chatId].push(msg);
+            })
+            .addCase(startPrivateChat.fulfilled, (state, action) => {
+                const chat = action.payload;
+
+                // agar already exist nahi hai to list me add karo
+                if (!state.chats.find((c) => c.id === chat.id)) {
+                    state.chats.unshift(chat);
+                }
+
+                // active chat set karo
+                state.activeChatId = chat.id;
             });
+
 },
 });
 

@@ -12,3 +12,7 @@ export const getMessagesAPI = (chatId) => {
 export const sendMessageAPI = (data) => {
     return api.post("/api/chat/send", data);
 }
+
+export const startPrivateChatAPI = (otherUserId) => {
+    return api.get(`/api/chat/private/${otherUserId}`)
+}
