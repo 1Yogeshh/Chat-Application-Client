@@ -1,16 +1,35 @@
 import { MessageSquare, PenLine, Search } from "lucide-react";
 import ChatListItem from "./ChatListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchChats, setActiveChat } from "../../store/slices/chatSlice";
+import { useEffect, useState } from "react";
+import { fetchChats, setActiveChat, startPrivateChat } from "../../store/slices/chatSlice";
+import { searchUsers } from "../../store/slices/user.Slice";
 
 const RightPanel = () => {
   const dispatch = useDispatch();
   const { chats, activeChatId } = useSelector((s) => s.chat);
+  const { searchResults } = useSelector((s) => s.user)
+
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     dispatch(fetchChats());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (search.trim().length > 1) {
+      dispatch(searchUsers(search))
+    } else {
+      dispatch(clearSearch())
+    }
+  }, [search, dispatch]);
+
+  //start private chat
+  const handleStartChat = (authUserId) => {
+    dispatch(startPrivateChat(authUserId));
+    setSearch("");
+    dispatch(clearSearch());
+  }
 
   return (
     <div className="w-80 bg-white p-6 overflow-y-auto rounded-[30px]">
@@ -26,12 +45,32 @@ const RightPanel = () => {
       <div className="mb-6">
         <div className="flex items-center bg-gray-100 p-1 rounded-lg">
           <input
-            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search or start a message"
-            className="flex-1 p-2 bg-transparent outline-none text-sm"
+            className="flex-1 bg-transparent outline-none text-sm"
           />
           <Search size={18} className="mx-2 text-gray-500" />
         </div>
+        {/* 🔥 SEARCH RESULTS DROPDOWN */}
+        {searchResults.length > 0 && (
+          <div className="absolute top-14 left-0 right-0 bg-white shadow-lg rounded-xl max-h-60 overflow-y-auto z-50 border">
+            {searchResults.map((user) => (
+              <div
+                key={user.authUserId}
+                onClick={() => handleStartChat(user.authUserId)}
+                className="p-3 hover:bg-gray-100 cursor-pointer border-b last:border-none"
+              >
+                <p className="font-semibold text-sm">
+                  {user.name}
+                </p>
+                <p className="text-xs text-gray-500">
+                  @{user.username}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ALL CHATS */}
