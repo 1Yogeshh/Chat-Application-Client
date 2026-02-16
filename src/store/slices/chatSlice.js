@@ -72,6 +72,7 @@ const chatSlice = createSlice({
         activeChatId: null,
         messages: {},
         loading: false,
+        onlineUsers: {},
     },
     reducers: {
         setActiveChat: (state, action) => {
@@ -110,8 +111,13 @@ const chatSlice = createSlice({
                     msg.status = "SEEN";
                 }
             });
+        },
+        setUserOnline: (state, action) => {
+            state.onlineUsers[action.payload] = true;
+        },
+        setUserOffline: (state, action) => {
+            state.onlineUsers[action.payload] = false;
         }
-
     },
     extraReducers: (builder) => {
         builder
@@ -162,5 +168,11 @@ const chatSlice = createSlice({
     },
 });
 
-export const { setActiveChat, addMessage, updateSeen } = chatSlice.actions;
+export const { 
+    setActiveChat, 
+    addMessage, 
+    updateSeen, 
+    setUserOffline, 
+    setUserOnline 
+} = chatSlice.actions;
 export default chatSlice.reducer;
