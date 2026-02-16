@@ -37,6 +37,17 @@ const RightPanel = () => {
     dispatch(clearSearch());
   }
 
+  //unread count function
+  const getUnreadCount = (chatId) => {
+    const chatMessages = messages[chatId] || [];
+
+    return chatMessages.filter(
+      (msg) =>
+        msg.senderId !== myAuthUserId &&
+        msg.status !== "SEEN"
+    ).length;
+  }
+
   return (
     <div className="w-80 bg-white p-6 overflow-y-auto rounded-[30px]">
       {/* HEADER */}
@@ -113,7 +124,7 @@ const RightPanel = () => {
         )}
 
         {/* ✅ REAL CHAT LIST */}
-        {chats.map((chat) => (
+        {/* {chats.map((chat) => (
           <ChatListItem
             key={chat.id}
             name={chat.otherUser?.name ?? "Unknown"}
@@ -129,7 +140,31 @@ const RightPanel = () => {
             active={activeChatId === chat.id}
             onClick={() => dispatch(setActiveChat(chat.id))}
           />
-        ))}
+        ))} */}
+        {chats.map((chat) => {
+          const unreadCount = getUnreadCount(chat.id);
+          const isUnread = unreadCount > 0;
+
+          return (
+            <ChatListItem
+              key={chat.id}
+              name={chat.otherUser?.name ?? "Unknown"}
+              msg={chat.lastMessage?.content ?? "No messages yet"}
+              time={
+                chat.lastMessage?.createdAt
+                  ? new Date(chat.lastMessage.createdAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                  : ""
+              }
+              active={activeChatId === chat.id}
+              unreadCount={unreadCount}
+              isUnread={isUnread}
+              onClick={() => dispatch(setActiveChat(chat.id))}
+            />
+          );
+        })}
       </section>
     </div>
   );
