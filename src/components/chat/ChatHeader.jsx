@@ -1,11 +1,11 @@
 import { Star, Search, Video, Phone } from "lucide-react";
 import pic from "../../assets/blueBackground.png"
 
-const ChatHeader = ({ onUserClick, user }) => {
+const ChatHeader = ({ onUserClick, user, isOnline }) => {
   if (!user) return null;
 
   const handleProfileOpen = () => {
-    onUserClick?.(user);   
+    onUserClick?.(user);
   };
 
   return (
@@ -21,8 +21,11 @@ const ChatHeader = ({ onUserClick, user }) => {
           <h3 className="text-sm font-bold text-gray-800">
             {user.name} ({user.username})
           </h3>
-          <p className="text-xs text-[#4ADE80] font-medium">
-            +6 Online
+          <p
+            className={`text-xs font-medium ${isOnline ? "text-[#4ADE80]" : "text-gray-400"
+              }`}
+          >
+            {isOnline ? "Online" : "Offline"}
           </p>
         </div>
       </div>
