@@ -7,8 +7,9 @@ import { searchUsers, clearSearch } from "../../store/slices/user.Slice";
 
 const RightPanel = () => {
   const dispatch = useDispatch();
-  const { chats, activeChatId } = useSelector((s) => s.chat);
+  const { chats, activeChatId, messages } = useSelector((s) => s.chat);
   const { searchResults } = useSelector((s) => s.user)
+  const myAuthUserId = useSelector((s) => s.user.profile.authUserId);
 
   const [search, setSearch] = useState("")
 
