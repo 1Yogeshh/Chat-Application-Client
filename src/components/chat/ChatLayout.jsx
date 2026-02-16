@@ -4,7 +4,7 @@ import MessageInput from "./MessageInput";
 import { useSelector } from "react-redux";
 
 const ChatLayout = ({ onUserClick }) => {
-    const { activeChatId, chats } = useSelector((s) => s.chat)
+    const { activeChatId, chats, onlineUsers } = useSelector((s) => s.chat)
 
     if (!activeChatId) {
         return (
@@ -16,11 +16,15 @@ const ChatLayout = ({ onUserClick }) => {
 
     const currentChat = chats.find(c => c.id === activeChatId);
 
-
+    const isOnline = onlineUsers[currentChat?.otherUser?.authUserId];
 
     return (
         <div className="flex flex-1 flex-col bg-[#F4F3F8] rounded-[30px]" >
-            <ChatHeader onUserClick={onUserClick} user={currentChat?.otherUser} />
+            <ChatHeader
+                onUserClick={onUserClick}
+                user={currentChat?.otherUser}
+                isOnline={isOnline}
+            />
             <Messages chatId={activeChatId} />
             <MessageInput chatId={activeChatId} />
         </div>
