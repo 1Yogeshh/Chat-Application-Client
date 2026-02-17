@@ -1,15 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import MessageBubble from "./MessageBubble";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { fetchMessages } from "../../store/slices/chatSlice";
 import { getSocket } from "../../socket/socket";
 
 const Messages = ({ chatId }) => {
   const dispatch = useDispatch();
+  const bottomRef = useRef(null);
+
 
   const messages = useSelector(
     (s) => s.chat.messages[chatId] || []
   );
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   // console.log("messages: ", messages)
 
@@ -67,6 +73,8 @@ const Messages = ({ chatId }) => {
           />
         );
       })}
+      {/* 👇 SCROLL ANCHOR */}
+      <div ref={bottomRef} />
     </div>
   );
 };

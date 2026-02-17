@@ -48,7 +48,7 @@ const MessageBubble = ({
         <span>{time}</span>
 
         {/* 🔥 STATUS TICK */}
-        {status === "SENT" && (
+        {/* {status === "SENT" && (
           <Check size={14} className="text-gray-400" />
         )}
 
@@ -58,7 +58,7 @@ const MessageBubble = ({
 
         {status === "SEEN" && (
           <CheckCheck size={14} className="text-blue-500" />
-        )}
+        )} */}
       </div>
     </div>
   );

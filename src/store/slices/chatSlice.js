@@ -100,18 +100,6 @@ const chatSlice = createSlice({
                 state.chats.unshift(chat);
             }
         },
-        // updateSeen: (state, action) => {
-        //     const { chatId, lastSeenMessageId } = action.payload;
-
-        //     const msgs = state.messages[chatId];
-        //     if (!msgs) return;
-
-        //     msgs.forEach(msg => {
-        //         if (msg.id <= lastSeenMessageId) {
-        //             msg.status = "SEEN";
-        //         }
-        //     });
-        // },
         updateSeen: (state, action) => {
             const { chatId, lastSeenMessageId, userId } = action.payload;
 
@@ -120,8 +108,8 @@ const chatSlice = createSlice({
 
             msgs.forEach(msg => {
                 if (
-                    msg.senderId !== userId && 
-                    msg.id === lastSeenMessageId
+                    msg.senderId !== userId &&
+                    msg.id <= lastSeenMessageId
                 ) {
                     msg.status = "SEEN";
                 }
