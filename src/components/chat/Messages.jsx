@@ -11,7 +11,7 @@ const Messages = ({ chatId }) => {
     (s) => s.chat.messages[chatId] || []
   );
 
-  console.log("messages: ", messages)
+  // console.log("messages: ", messages)
 
   const myAuthUserId = useSelector(
     (s) => s.user.profile.authUserId

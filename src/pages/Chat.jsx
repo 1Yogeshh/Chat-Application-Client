@@ -7,7 +7,7 @@ import ProfileModal from "../components/profile/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { connectSocket, getSocket, disconnectSocket } from "../socket/socket"
 import { useEffect } from "react";
-import { addMessage, updateSeen, setUserOffline, setUserOnline } from "../store/slices/chatSlice";
+import { addMessage, updateSeen, setUserOffline, setUserOnline, setOnlineUsers } from "../store/slices/chatSlice";
 
 const ChatPage = () => {
   const { profile } = useSelector((s) => s.user)
@@ -21,6 +21,15 @@ const ChatPage = () => {
 
     socket.on("connect", () => {
       console.log("🟢 Connected:", socket.id);
+
+      socket.emit("get-online-users");
+      // console.log("hello")
+    });
+
+    // 🔥 full online list
+    socket.on("online-users-list", (users) => {
+      console.log("🔥 ONLINE LIST RECEIVED:", users)
+      dispatch(setOnlineUsers(users));
     });
 
     socket.on("new-message", (message) => {
@@ -49,6 +58,7 @@ const ChatPage = () => {
       socket.off("message-seen");
       socket.off("user-online");
       socket.off("user-offline");
+      socket.off("online-users-list");
       disconnectSocket();
     };
   }, [dispatch]);

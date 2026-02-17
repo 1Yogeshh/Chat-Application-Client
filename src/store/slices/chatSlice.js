@@ -100,14 +100,29 @@ const chatSlice = createSlice({
                 state.chats.unshift(chat);
             }
         },
+        // updateSeen: (state, action) => {
+        //     const { chatId, lastSeenMessageId } = action.payload;
+
+        //     const msgs = state.messages[chatId];
+        //     if (!msgs) return;
+
+        //     msgs.forEach(msg => {
+        //         if (msg.id <= lastSeenMessageId) {
+        //             msg.status = "SEEN";
+        //         }
+        //     });
+        // },
         updateSeen: (state, action) => {
-            const { chatId, lastSeenMessageId } = action.payload;
+            const { chatId, lastSeenMessageId, userId } = action.payload;
 
             const msgs = state.messages[chatId];
             if (!msgs) return;
 
             msgs.forEach(msg => {
-                if (msg.id === lastSeenMessageId) {
+                if (
+                    msg.senderId !== userId && 
+                    msg.id === lastSeenMessageId
+                ) {
                     msg.status = "SEEN";
                 }
             });
@@ -117,6 +132,12 @@ const chatSlice = createSlice({
         },
         setUserOffline: (state, action) => {
             state.onlineUsers[action.payload] = false;
+        },
+        setOnlineUsers: (state, action) => {
+            state.onlineUsers = {};
+            action.payload.forEach(id => {
+                state.onlineUsers[id] = true;
+            });
         }
     },
     extraReducers: (builder) => {
@@ -168,11 +189,12 @@ const chatSlice = createSlice({
     },
 });
 
-export const { 
-    setActiveChat, 
-    addMessage, 
-    updateSeen, 
-    setUserOffline, 
-    setUserOnline 
+export const {
+    setActiveChat,
+    addMessage,
+    updateSeen,
+    setUserOffline,
+    setUserOnline,
+    setOnlineUsers
 } = chatSlice.actions;
 export default chatSlice.reducer;

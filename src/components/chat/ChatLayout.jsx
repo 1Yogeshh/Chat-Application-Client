@@ -18,7 +18,7 @@ const ChatLayout = ({ onUserClick }) => {
 
     const isOnline = onlineUsers[currentChat?.otherUser?.authUserId];
 
-    console.log("kon hai : ", isOnline)
+    // console.log("kon hai : ", onlineUsers)
 
     return (
         <div className="flex flex-1 flex-col bg-[#F4F3F8] rounded-[30px]" >
