@@ -1,9 +1,15 @@
 import { io } from "socket.io-client";
 
-let socket;
+let socket = null;
 
 export const connectSocket = () => {
   const token = localStorage.getItem("accessToken");
+
+  // 🔥 disconnect old socket
+  if (socket) {
+    socket.disconnect();
+    socket = null;
+  }
 
   if (!socket) {
     socket = io("http://localhost:5002", {
