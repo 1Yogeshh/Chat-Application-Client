@@ -6,6 +6,7 @@ export const loginUser = createAsyncThunk(
     async (payload, { rejectWithValue }) => {
         try {
             const res = await loginAPI(payload);
+            window.location.reload();
             return res.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "Login failed");

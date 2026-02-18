@@ -6,8 +6,21 @@ import ChatPage from "./pages/Chat";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import AppInitializer from "./guards/AppInitializer";
+import { fetchMyProfile } from "./store/slices/user.Slice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      dispatch(fetchMyProfile());
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <AppInitializer>

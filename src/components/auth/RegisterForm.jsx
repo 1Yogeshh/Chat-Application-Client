@@ -62,7 +62,7 @@ export default function RegisterForm() {
                     type="submit"
                     disabled={loading}
                     className="w-full py-3 rounded-md font-semibold text-white bg-[#001121] hover:opacity-90 transition disabled:opacity-60" >
-                    {loading ? "Signing in..." : "Sign in"}
+                    {loading ? "Creating..." : "Sign up"}
                 </button>
             </form>
 
