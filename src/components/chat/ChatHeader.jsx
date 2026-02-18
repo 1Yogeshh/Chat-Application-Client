@@ -13,7 +13,7 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
       <div onClick={handleProfileOpen} className="flex items-center gap-3">
         <div className="flex -space-x-2">
           <img
-            src={pic}
+            src={user.avtar}
             className="h-8 w-8 rounded-full border-2 border-white"
           />
         </div>

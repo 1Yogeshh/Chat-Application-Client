@@ -62,6 +62,7 @@ const ChatListItem = ({
   unreadCount = 0,
   isUnread = false,
   onClick,
+  avtar
 }) => {
   return (
     <div
@@ -77,7 +78,7 @@ const ChatListItem = ({
       <div className="flex items-center gap-3 min-w-0">
         {/* Avatar */}
         <img
-          src={`https://i.pravatar.cc/40?u=${name}`}
+          src={avtar}
           className="h-10 w-10 rounded-xl flex-shrink-0"
           alt={name}
         />

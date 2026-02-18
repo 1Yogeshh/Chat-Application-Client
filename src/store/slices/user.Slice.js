@@ -6,6 +6,7 @@ export const createUser = createAsyncThunk(
     async (payload, { rejectWithValue }) => {
         try {
             const res = await createUserAPI(payload);
+            console.log(res.data)
             return res.data.user;
         } catch (error) {
             return rejectWithValue(error.response?.data);

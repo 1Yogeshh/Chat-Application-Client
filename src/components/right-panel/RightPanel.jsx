@@ -83,10 +83,10 @@ const RightPanel = () => {
                   onClick={() => handleStartChat(user)}
                   className="flex items-center gap-3 p-3 cursor-pointer transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
                 >
-                  {/* Avatar */}
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
-                    {user.name?.charAt(0).toUpperCase()}
-                  </div>
+                  <img
+                    src={user.avtar}
+                    className="h-10 w-10 rounded-full flex items-center justify-center"
+                  />
 
                   {/* Info */}
                   <div className="flex flex-col">
@@ -158,6 +158,7 @@ const RightPanel = () => {
                   })
                   : ""
               }
+              avtar = {chat.otherUser.avtar}
               active={activeChatId === chat.id}
               unreadCount={unreadCount}
               isUnread={isUnread}

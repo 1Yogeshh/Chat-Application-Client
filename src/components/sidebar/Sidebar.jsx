@@ -41,9 +41,10 @@ const Sidebar = ({ onProfileClick }) => {
             <div className="mt-auto flex items-center gap-3"
                 onClick={onProfileClick}>
                 <img
-                    src="https://i.pravatar.cc/40?img=12"
+                    src={profile.avtar}
                     className="h-10 w-10 rounded-xl"
-                    alt="profile" />
+                    alt="profile"
+                />
                 <div>
                     <p className="text-sm font-semibold text-white" >
                         {profile.name}
