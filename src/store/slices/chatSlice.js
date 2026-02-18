@@ -115,12 +115,6 @@ const chatSlice = createSlice({
                 }
             });
         },
-        setUserOnline: (state, action) => {
-            state.onlineUsers[action.payload] = true;
-        },
-        setUserOffline: (state, action) => {
-            state.onlineUsers[action.payload] = false;
-        },
         setOnlineUsers: (state, action) => {
             state.onlineUsers = {};
             action.payload.forEach(id => {
@@ -181,8 +175,6 @@ export const {
     setActiveChat,
     addMessage,
     updateSeen,
-    setUserOffline,
-    setUserOnline,
     setOnlineUsers
 } = chatSlice.actions;
 export default chatSlice.reducer;
