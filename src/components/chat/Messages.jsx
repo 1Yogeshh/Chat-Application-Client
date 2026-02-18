@@ -17,7 +17,6 @@ const Messages = ({ chatId }) => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // console.log("messages: ", messages)
 
   const myAuthUserId = useSelector(
     (s) => s.user.profile.authUserId
@@ -32,7 +31,6 @@ const Messages = ({ chatId }) => {
 
     const lastMessage = messages[messages.length - 1];
 
-    // ❌ Don't mark seen if it's my own message
     if (lastMessage.senderId === myAuthUserId) return;
 
     const socket = getSocket();
@@ -60,7 +58,7 @@ const Messages = ({ chatId }) => {
         return (
           <MessageBubble
             key={msg.id}
-            type={isMe ? "sent" : "received"}   // ✅ FIX
+            type={isMe ? "sent" : "received"}   
             name={msg.sender?.name}
             avatar={msg.sender?.avatar}
             sender={msg.sender}
@@ -73,8 +71,9 @@ const Messages = ({ chatId }) => {
           />
         );
       })}
-      {/* 👇 SCROLL ANCHOR */}
+
       <div ref={bottomRef} />
+    
     </div>
   );
 };

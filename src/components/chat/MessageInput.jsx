@@ -20,13 +20,6 @@ const MessageInput = ({ chatId }) => {
 
     const socket = getSocket();
 
-    // dispatch(
-    //   sendMessage({
-    //     chatId,
-    //     content: text,
-    //   })
-    // )
-
     socket.emit("send-message", {
       chatId,
       content: text,

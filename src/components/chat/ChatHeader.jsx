@@ -1,5 +1,4 @@
 import { Star, Search, Video, Phone } from "lucide-react";
-import pic from "../../assets/blueBackground.png"
 
 const ChatHeader = ({ onUserClick, user, isOnline }) => {
   if (!user) return null;
