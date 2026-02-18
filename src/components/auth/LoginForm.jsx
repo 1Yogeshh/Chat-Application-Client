@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/slices/authSlice"
 import { useEffect } from "react";
+import { resetChatState } from "../../store/slices/chatSlice";
+import { disconnectSocket } from "../../socket/socket"
 
 export default function LoginForm() {
     const dispatch = useDispatch();
@@ -28,9 +30,13 @@ export default function LoginForm() {
 
     useEffect(() => {
         if (profile) {
+            dispatch(resetChatState())
+            disconnectSocket();
             navigate("/chat")
         }
         else if (user) {
+            dispatch(resetChatState())
+            disconnectSocket();
             navigate("/create-user")
         }
     }, [user, navigate, profile])

@@ -27,6 +27,7 @@ export const connectSocket = () => {
 export const getSocket = () => socket;
 
 export const disconnectSocket = () => {
+  console.log("disconnect ho gya huraaah.. !!!!!!")
   if (socket) {
     socket.disconnect();
   }
