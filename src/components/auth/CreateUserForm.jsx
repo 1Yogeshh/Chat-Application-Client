@@ -39,7 +39,6 @@ export default function CreateUserForm() {
                 </p>
             </div>
 
-            {/* EMAIL (prefilled + disabled) */}
             <div>
                 <label className="block text-sm font-semibold mb-1.5 text-left">
                     Email
@@ -79,7 +78,7 @@ export default function CreateUserForm() {
                 type="submit"
                 className="w-full py-3 rounded-md font-semibold text-white bg-[#001121]"
             >
-                Continue
+                {loading ? "Creating..." : "Continue"}
             </button>
         </form>
     );
