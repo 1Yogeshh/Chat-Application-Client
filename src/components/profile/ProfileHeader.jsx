@@ -2,10 +2,7 @@ export default function ProfileHeader({ isOwn, user }) {
   console.log("hello... ", user)
   return (
     <div className="relative">
-      {/* COVER */}
       <div className="h-40 bg-[#4F46E5]" />
-
-      {/* AVATAR */}
       <div className="absolute left-6 -bottom-12 flex items-end gap-4">
         <img
           src={user.avtar}

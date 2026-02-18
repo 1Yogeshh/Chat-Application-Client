@@ -10,13 +10,11 @@ const ProfileModal = ({ open, onClose, user, loggedInUser }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      {/* BACKDROP */}
       <div
         className="absolute inset-0 bg-black/30"
         onClick={onClose}
       />
 
-      {/* SIDE PANEL */}
       <div className="relative h-full w-[380px] bg-[#F8FAFC] shadow-xl animate-slideIn">
         <button
           onClick={onClose}

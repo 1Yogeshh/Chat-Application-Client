@@ -122,25 +122,6 @@ const RightPanel = () => {
             </p>
           </div>
         )}
-
-        {/* ✅ REAL CHAT LIST */}
-        {/* {chats.map((chat) => (
-          <ChatListItem
-            key={chat.id}
-            name={chat.otherUser?.name ?? "Unknown"}
-            msg={chat.lastMessage?.content ?? "No messages yet"}
-            time={
-              chat.lastMessage?.createdAt
-                ? new Date(chat.lastMessage.createdAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-                : ""
-            }
-            active={activeChatId === chat.id}
-            onClick={() => dispatch(setActiveChat(chat.id))}
-          />
-        ))} */}
         {chats.map((chat) => {
           const unreadCount = getUnreadCount(chat.id);
           const isUnread = unreadCount > 0;
