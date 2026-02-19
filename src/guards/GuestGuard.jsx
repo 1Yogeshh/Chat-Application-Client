@@ -5,21 +5,18 @@ const GuestGuard = ({ children }) => {
     const token = localStorage.getItem("accessToken");
     const { profile, profileLoaded } = useSelector((s) => s.user)
 
-    // ⏳ profile abhi load ho rahi hai
     if (token && !profileLoaded) {
-        return null; // ya loader
+        return null; 
     }
 
     if (token && profile) {
         return <Navigate to="/chat" replace />;
     }
 
-    // ✅ logged in + profile missing → create-user
     if (token && !profile) {
         return <Navigate to="/create-user" replace />;
     }
-
-
+    
     return children;
 };
 

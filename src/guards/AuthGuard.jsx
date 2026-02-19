@@ -6,22 +6,18 @@ const AuthGuard = ({ children }) => {
     const location = useLocation();
     const { profile, profileLoaded } = useSelector((s) => s.user);
 
-    // ❌ not logged in
     if (!token) {
         return <Navigate to="/login" replace />;
     }
 
-    // ⏳ token hai but profile abhi load ho rahi hai
     if (token && !profileLoaded) {
-        return null; // or loader
+        return null;
     }
 
-    // ✅ profile exists → always chat
     if (token && profile && location.pathname !== "/chat") {
         return <Navigate to="/chat" replace />;
     }
 
-    // ✅ token hai but profile missing → allow create-user
     return children;
 };
 
