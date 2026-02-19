@@ -60,7 +60,6 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // CREATE USER
             .addCase(createUser.pending, (state) => {
                 state.loading = true;
             })
@@ -74,20 +73,18 @@ const userSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // FETCH PROFILE
             .addCase(fetchMyProfile.fulfilled, (state, action) => {
                 state.profile = action.payload;
                 state.profileLoaded = true;
                 state.error = null;
             })
             .addCase(fetchMyProfile.rejected, (state, action) => {
-                // ⚠️ 404 = profile not created yet (valid case)
+                
                 if (action.payload?.statusCode === 404) {
                     state.profile = null;
-                    state.profileLoaded = true; // 🔥 THIS IS THE KEY
+                    state.profileLoaded = true; 
                     state.error = null;
                 } else {
-                    // real error
                     state.error = action.payload;
                     state.profileLoaded = true;
                 }

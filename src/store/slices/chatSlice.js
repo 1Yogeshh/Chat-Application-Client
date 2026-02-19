@@ -93,7 +93,6 @@ const chatSlice = createSlice({
 
             state.messages[chatId].push(message);
 
-            // 🔥 Update last message in chat list
             const chatIndex = state.chats.findIndex(c => c.id === chatId);
 
             if (chatIndex !== -1) {
@@ -101,7 +100,6 @@ const chatSlice = createSlice({
 
                 chat.lastMessage = message;
 
-                // 🔥 Move chat to top
                 state.chats.splice(chatIndex, 1);
                 state.chats.unshift(chat);
             }
@@ -147,13 +145,11 @@ const chatSlice = createSlice({
 
                 state.messages[chatId].push(msg);
 
-                // 2️⃣ update last message in chat list
                 const chat = state.chats.find(c => c.id === chatId);
                 if (chat) {
                     chat.lastMessage = msg;
                 }
 
-                // 3️⃣ move chat to top (like WhatsApp)
                 state.chats = [
                     chat,
                     ...state.chats.filter(c => c.id !== chatId)
@@ -167,7 +163,7 @@ const chatSlice = createSlice({
                 if (!existing) {
                     state.chats.unshift({
                         ...chat,
-                        otherUser: chat._userData, // ✅ correct
+                        otherUser: chat._userData,
                         lastMessage: null
                     });
                 }
