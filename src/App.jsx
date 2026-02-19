@@ -26,7 +26,6 @@ function App() {
       <AppInitializer>
         <Routes>
 
-          {/* GUEST ONLY */}
           <Route
             path="/login"
             element={
@@ -45,7 +44,6 @@ function App() {
             }
           />
 
-          {/* AUTH REQUIRED */}
           <Route
             path="/create-user"
             element={
