@@ -53,16 +53,14 @@ const ChatPage = () => {
       <AnimatedBackground />
 
       <div className="flex w-full gap-4 overflow-hidden rounded-[40px]">
-        {/* SIDEBAR → OWN PROFILE */}
+      
         <Sidebar onProfileClick={() => setProfileUser(profile)} />
 
-        {/* CHAT → OTHER USERS */}
         <ChatLayout onUserClick={(user) => setProfileUser(user)} />
 
         <RightPanel />
       </div>
 
-      {/* PROFILE MODAL (OWN + OTHER) */}
       <ProfileModal
         open={!!profileUser}
         user={profileUser}
