@@ -12,7 +12,7 @@ export const connectSocket = () => {
   }
 
   if (!socket) {
-    socket = io("http://localhost:5002", {
+    socket = io("https://chat-service-sstt.onrender.com/", {
       autoConnect: false,
       transports: ["websocket"],
     });

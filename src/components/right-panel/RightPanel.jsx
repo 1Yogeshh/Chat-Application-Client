@@ -48,6 +48,7 @@ const RightPanel = () => {
     ).length;
   }
 
+
   return (
     <div className="w-80 bg-white p-6 overflow-y-auto rounded-[30px]">
       {/* HEADER */}
@@ -85,6 +86,7 @@ const RightPanel = () => {
                 >
                   <img
                     src={user.avtar}
+                    alt="avtar"
                     className="h-10 w-10 rounded-full flex items-center justify-center"
                   />
 
