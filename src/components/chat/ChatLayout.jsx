@@ -25,7 +25,7 @@ const ChatLayout = ({ onUserClick }) => {
                 user={currentChat?.otherUser}
                 isOnline={isOnline}
             />
-            <Messages chatId={activeChatId} />
+            <Messages chatId={activeChatId} otherUser={currentChat?.otherUser} />
             <MessageInput chatId={activeChatId} />
         </div>
     );

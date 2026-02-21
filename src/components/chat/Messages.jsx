@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { fetchMessages } from "../../store/slices/chatSlice";
 import { getSocket } from "../../socket/socket";
 
-const Messages = ({ chatId }) => {
+const Messages = ({ chatId, otherUser }) => {
   const dispatch = useDispatch();
   const bottomRef = useRef(null);
 
@@ -50,6 +50,8 @@ const Messages = ({ chatId }) => {
 
   }, [chatId]);
 
+  console.log("messages: ", messages)
+
   return (
     <div className="flex-1 overflow-y-auto p-8 space-y-6">
       {messages.map((msg) => {
@@ -62,6 +64,7 @@ const Messages = ({ chatId }) => {
             name={msg.sender?.name}
             avatar={msg.sender?.avatar}
             sender={msg.sender}
+            otherUser={otherUser}
             status={msg.status}
             message={msg.content}
             time={new Date(msg.createdAt).toLocaleTimeString([], {

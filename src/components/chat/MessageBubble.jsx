@@ -8,13 +8,14 @@ const MessageBubble = ({
   time,
   sender,
   onUserClick,
-  status
+  status,
+  otherUser
 }) => {
   if (type === "received") {
     return (
       <div className="flex gap-3">
         <img
-          src={avatar}
+          src={otherUser?.avtar}
           onClick={() => onUserClick?.(sender)}
           className="h-10 w-10 rounded-xl self-start cursor-pointer"
         />
@@ -38,6 +39,8 @@ const MessageBubble = ({
       </div>
     );
   }
+
+  console.log("hello :", otherUser)
 
   return (
     <div className="flex flex-col items-end gap-1">
