@@ -53,7 +53,7 @@ const Messages = ({ chatId, otherUser }) => {
   console.log("messages: ", messages)
 
   return (
-    <div className="flex-1 overflow-y-auto p-8 space-y-6">
+    <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
       {messages.map((msg) => {
         const isMe = msg.senderId === myAuthUserId;
 

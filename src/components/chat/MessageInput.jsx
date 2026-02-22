@@ -24,8 +24,8 @@ const MessageInput = ({ chatId }) => {
     setText("")
   }
   return (
-    <div className="p-8">
-      <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm">
+    <div className="p-3 md:p-8">
+      <div className="flex items-center gap-3 md:gap-4 bg-white p-3 md:p-4 rounded-2xl shadow-sm">
         <Paperclip className="text-gray-400 cursor-pointer" />
         <input
           type="text"

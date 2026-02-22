@@ -8,7 +8,7 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
   };
 
   return (
-    <header className="flex items-center justify-between border-b px-8 py-4">
+    <header className="flex items-center justify-between border-b px-4 md:px-8 py-4">
       <div onClick={handleProfileOpen} className="flex items-center gap-3">
         <div className="flex -space-x-2">
           <img

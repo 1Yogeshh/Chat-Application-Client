@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@custom-variant lg2 (@media (width >= 1083px));
+
+
 /* 3D helpers */
 .perspective {
   perspective: 2000px;

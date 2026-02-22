@@ -9,7 +9,7 @@ const ProfileModal = ({ open, onClose, user, loggedInUser }) => {
   const isOwn = user.id === loggedInUser.id;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div className="relative h-full w-full md:w-[380px] bg-[#F8FAFC] shadow-xl animate-slideIn">
       <div
         className="absolute inset-0 bg-black/30"
         onClick={onClose}
