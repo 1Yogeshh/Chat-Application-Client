@@ -1,14 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginAPI, registerAPI } from "../../api/auth.api"
+// import toast from "react-hot-toast";
+import { showToast } from "../../utils/toast"
 
 export const loginUser = createAsyncThunk(
     "auth/login",
     async (payload, { rejectWithValue }) => {
+        const id = showToast.loading("Signing in...");
         try {
             const res = await loginAPI(payload);
             window.location.reload();
+            // toast.success("Welcome back!", { id });
+            showToast.success("Welcome back!", id);
             return res.data;
         } catch (error) {
+            showToast.error(error.response?.data?.message || "Login failed", id);
             return rejectWithValue(error.response?.data || "Login failed");
         }
     }
@@ -18,11 +24,14 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     "auth/register",
     async (payload, { rejectWithValue }) => {
+        const id = showToast.loading("Creating account...");
         try {
             const res = await registerAPI(payload);
-            console.log(res.data)
+            showToast.success("Account created!", id);
+            // console.log(res.data)
             return res.data;
         } catch (err) {
+            showToast.error(err.response?.data?.message || "Register failed", id);
             return rejectWithValue(err.response?.data || "Register failed");
         }
     }

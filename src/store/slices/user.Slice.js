@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserAPI, getMyProfileAPI, searchUserAPI } from "../../api/user.api"
+import { showToast } from "../../utils/toast";
 
 export const createUser = createAsyncThunk(
     "user/create",
     async (payload, { rejectWithValue }) => {
         try {
             const res = await createUserAPI(payload);
-            console.log(res.data)
+            // console.log(res.data)
+            showToast.success("Profile created!");
             return res.data.user;
         } catch (error) {
+            showToast.error(error.response?.data?.message || "Profile creation failed")
             return rejectWithValue(error.response?.data);
         }
     }
@@ -19,9 +22,12 @@ export const fetchMyProfile = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await getMyProfileAPI();
-            console.log(res)
+            // console.log(res)
             return res.data;
         } catch (error) {
+            if (error.response?.status !== 404) {
+                showToast.error("Failed to load profile");
+            }
             return rejectWithValue(error.response?.data)
         }
     }
@@ -79,10 +85,10 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchMyProfile.rejected, (state, action) => {
-                
+
                 if (action.payload?.statusCode === 404) {
                     state.profile = null;
-                    state.profileLoaded = true; 
+                    state.profileLoaded = true;
                     state.error = null;
                 } else {
                     state.error = action.payload;

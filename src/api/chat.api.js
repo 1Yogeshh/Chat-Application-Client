@@ -7,7 +7,7 @@ export const getMyChatsAPI = () => {
 
 //get messages only
 export const getMessagesAPI = (chatId) => {
-    console.log(chatId)
+    // console.log(chatId)
     return api.get(`/api/chat/${chatId}`);
 }
 

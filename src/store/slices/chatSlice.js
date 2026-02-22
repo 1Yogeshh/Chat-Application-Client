@@ -5,6 +5,7 @@ import {
     sendMessageAPI,
     startPrivateChatAPI,
 } from "../../api/chat.api";
+import { showToast } from "../../utils/toast";
 
 // fetch chat list
 export const fetchChats = createAsyncThunk(
@@ -15,6 +16,7 @@ export const fetchChats = createAsyncThunk(
             console.log("list: ",res.data)
             return res.data;
         } catch (e) {
+            showToast.error("Failed to load chats")
             return rejectWithValue(e.response?.data);
         }
     }
@@ -29,6 +31,7 @@ export const fetchMessages = createAsyncThunk(
             console.log(res)
             return { chatId, messages: res.data };
         } catch (e) {
+            showToast.error("Failed to load messages");
             return rejectWithValue(e.response?.data);
         }
     }
@@ -59,6 +62,7 @@ export const startPrivateChat = createAsyncThunk(
                 _userData: userData
             };
         } catch (e) {
+            showToast.error("Could not start chat");
             return rejectWithValue(e.response?.data);
         }
     }
