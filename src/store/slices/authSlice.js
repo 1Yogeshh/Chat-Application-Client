@@ -8,8 +8,8 @@ export const loginUser = createAsyncThunk(
     async (payload, { rejectWithValue }) => {
         try {
             const res = await loginAPI(payload);
-            window.location.reload();
-            showToast.success("Welcome back!", id);
+            // window.location.reload();
+            showToast.success("Welcome back!");
             return res.data;
         } catch (error) {
             showToast.error(error.response?.data?.message || "Login failed");
