@@ -10,16 +10,13 @@ const ProfileModal = ({ open, onClose, user, loggedInUser }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/30"
         onClick={onClose}
       />
 
-      {/* Panel */}
       <div className="relative h-full w-full lg2:w-[380px] bg-[#F8FAFC] shadow-xl">
 
-        {/* Mobile: back button */}
         <button
           onClick={onClose}
           className="lg2:hidden absolute left-4 top-4 z-10 flex items-center gap-1 text-white"
@@ -27,7 +24,6 @@ const ProfileModal = ({ open, onClose, user, loggedInUser }) => {
           <ArrowLeft size={20} />
         </button>
 
-        {/* Desktop: X button */}
         <button
           onClick={onClose}
           className="hidden lg2:flex absolute right-4 top-4 z-10 text-white hover:pointer"

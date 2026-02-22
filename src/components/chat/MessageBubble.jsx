@@ -40,8 +40,6 @@ const MessageBubble = ({
     );
   }
 
-  // console.log("hello :", otherUser)
-
   return (
     <div className="flex flex-col items-end gap-1">
       <div className="bg-[#D1FADF] p-4 rounded-2xl rounded-tr-none text-sm font-medium shadow-sm">

@@ -20,9 +20,7 @@ const ChatPage = () => {
   useEffect(() => {
     const socket = connectSocket();
 
-    socket.on("connect", () => {
-      // console.log("🟢 Connected:", socket.id);
-    });
+    socket.on("connect", () => {});
 
     socket.on("online-users-list", (users) => {
       dispatch(setOnlineUsers(users));

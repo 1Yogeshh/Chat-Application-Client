@@ -50,8 +50,6 @@ const Messages = ({ chatId, otherUser }) => {
 
   }, [chatId]);
 
-  // console.log("messages: ", messages)
-
   return (
     <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
       {messages.map((msg) => {

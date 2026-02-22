@@ -5,7 +5,6 @@ let socket = null;
 export const connectSocket = () => {
   const token = localStorage.getItem("accessToken");
 
-  // 🔥 disconnect old socket
   if (socket) {
     socket.disconnect();
     socket = null;
@@ -27,7 +26,6 @@ export const connectSocket = () => {
 export const getSocket = () => socket;
 
 export const disconnectSocket = () => {
-  // console.log("disconnect ho gya huraaah.. !!!!!!")
   if (socket) {
     socket.disconnect();
   }
