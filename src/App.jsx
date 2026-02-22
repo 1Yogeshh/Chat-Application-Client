@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateUser from "./pages/CreateUser";
@@ -10,9 +10,14 @@ import { fetchMyProfile } from "./store/slices/user.Slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+function RootRedirect() {
+  const token = localStorage.getItem("accessToken");
+  return <Navigate to={token ? "/chat" : "/login"} replace />
+}
+
 function App() {
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -25,6 +30,11 @@ function App() {
     <BrowserRouter>
       <AppInitializer>
         <Routes>
+
+          <Route
+            path="/"
+            element={<RootRedirect />}
+          />
 
           <Route
             path="/login"
