@@ -6,6 +6,7 @@ import { loginUser } from "../../store/slices/authSlice"
 import { useEffect } from "react";
 import { resetChatState } from "../../store/slices/chatSlice";
 import { disconnectSocket } from "../../socket/socket"
+import { fetchMyProfile } from "../../store/slices/user.Slice";
 
 export default function LoginForm() {
     const dispatch = useDispatch();
@@ -25,14 +26,18 @@ export default function LoginForm() {
                 email: form.get("email"),
                 password: form.get("password")
             })
-        )
+        ).then(() => {
+            if (res.meta.requestStatus === "fulfilled") {
+                dispatch(fetchMyProfile());  
+            }
+        })
     }
 
     useEffect(() => {
-        if (!user) return;
+        // if (!user) return;
 
         if (profile === undefined) return;
-        
+
         if (profile) {
             dispatch(resetChatState())
             disconnectSocket();
