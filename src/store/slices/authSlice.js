@@ -6,7 +6,7 @@ import { showToast } from "../../utils/toast"
 export const loginUser = createAsyncThunk(
     "auth/login",
     async (payload, { rejectWithValue }) => {
-        const id = showToast.loading("Signing in...");
+        // const id = showToast.loading("Signing in...");
         try {
             const res = await loginAPI(payload);
             window.location.reload();
@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     "auth/register",
     async (payload, { rejectWithValue }) => {
-        const id = showToast.loading("Creating account...");
+        // const id = showToast.loading("Creating account...");
         try {
             const res = await registerAPI(payload);
             showToast.success("Account created!", id);

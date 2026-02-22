@@ -40,7 +40,7 @@ const MessageBubble = ({
     );
   }
 
-  console.log("hello :", otherUser)
+  // console.log("hello :", otherUser)
 
   return (
     <div className="flex flex-col items-end gap-1">

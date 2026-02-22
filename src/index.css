@@ -62,3 +62,9 @@
 .animate-slideIn {
   animation: slideIn 0.25s ease-out;
 }
+
+@layer base {
+  button, a {
+    @apply cursor-pointer;
+  }
+}

@@ -13,7 +13,7 @@ export const fetchChats = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await getMyChatsAPI();
-            console.log("list: ",res.data)
+            // console.log("list: ",res.data)
             return res.data;
         } catch (e) {
             showToast.error("Failed to load chats")
@@ -28,7 +28,7 @@ export const fetchMessages = createAsyncThunk(
     async (chatId, { rejectWithValue }) => {
         try {
             const res = await getMessagesAPI(chatId);
-            console.log(res)
+            // console.log(res)
             return { chatId, messages: res.data };
         } catch (e) {
             showToast.error("Failed to load messages");
@@ -41,10 +41,10 @@ export const fetchMessages = createAsyncThunk(
 export const sendMessage = createAsyncThunk(
     "chat/sendMessage",
     async (payload, { rejectWithValue }) => {
-        console.log("🔥 sendMessage THUNK CALLED", payload);
+        // console.log("🔥 sendMessage THUNK CALLED", payload);
         try {
             const res = await sendMessageAPI(payload);
-            console.log(res)
+            // console.log(res)
             return res.data;
         } catch (e) {
             return rejectWithValue(e.response?.data);

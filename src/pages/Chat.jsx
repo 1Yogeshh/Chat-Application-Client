@@ -21,7 +21,7 @@ const ChatPage = () => {
     const socket = connectSocket();
 
     socket.on("connect", () => {
-      console.log("🟢 Connected:", socket.id);
+      // console.log("🟢 Connected:", socket.id);
     });
 
     socket.on("online-users-list", (users) => {
