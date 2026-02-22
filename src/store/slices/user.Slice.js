@@ -47,7 +47,7 @@ export const searchUsers = createAsyncThunk(
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        profile: null,
+        profile: undefined,
         loading: false,
         error: null,
         profileLoaded: false,
