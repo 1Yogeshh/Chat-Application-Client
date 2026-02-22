@@ -26,7 +26,7 @@ export default function LoginForm() {
                 email: form.get("email"),
                 password: form.get("password")
             })
-        ).then(() => {
+        ).then((res) => {
             if (res.meta.requestStatus === "fulfilled") {
                 dispatch(fetchMyProfile());  
             }
