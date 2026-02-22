@@ -29,6 +29,10 @@ export default function LoginForm() {
     }
 
     useEffect(() => {
+        if (!user) return;
+
+        if (profile === undefined) return;
+        
         if (profile) {
             dispatch(resetChatState())
             disconnectSocket();
