@@ -12,7 +12,7 @@ export const connectSocket = () => {
   }
 
   if (!socket) {
-    socket = io("https://chat-service-sstt.onrender.com/", {
+    socket = io(import.meta.env.VITE_SOCKET_URL, {
       autoConnect: false,
       transports: ["websocket"],
     });
