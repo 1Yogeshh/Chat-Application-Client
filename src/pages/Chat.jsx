@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import ProfileModal from "../components/profile/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { connectSocket, getSocket, disconnectSocket } from "../socket/socket";
-import { addMessage, updateSeen, setOnlineUsers, setActiveChat } from "../store/slices/chatSlice";
+import { addMessage, updateSeen, setOnlineUsers, setActiveChat, fetchChats } from "../store/slices/chatSlice";
 import { useBreakpoint } from "../hooks/useBreakpoint";
 
 const ChatPage = () => {
@@ -28,6 +28,7 @@ const ChatPage = () => {
 
     socket.on("new-message", (message) => {
       dispatch(addMessage({ chatId: message.chatId, message }));
+      dispatch(fetchChats())
     });
 
     socket.on("message-seen", (data) => {
