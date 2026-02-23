@@ -21,7 +21,7 @@ const ChatLayout = ({ onUserClick }) => {
     const isOnline = onlineUsers[currentChat?.otherUser?.authUserId];
 
     return (
-        <div className="flex flex-1 flex-col bg-[#F4F3F8] rounded-[30px]">
+        <div className="flex flex-1 flex-col bg-[#F4F3F8] lg2:rounded-[30px]">
             {/* Mobile back button */}
             <div className="md:hidden flex items-center gap-2 px-4 pt-4">
                 <button

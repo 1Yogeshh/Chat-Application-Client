@@ -20,7 +20,7 @@ const ChatPage = () => {
   useEffect(() => {
     const socket = connectSocket();
 
-    socket.on("connect", () => {});
+    socket.on("connect", () => { });
 
     socket.on("online-users-list", (users) => {
       dispatch(setOnlineUsers(users));
@@ -45,7 +45,7 @@ const ChatPage = () => {
   const isDesktop = useBreakpoint(1083);
 
   return (
-    <div className="relative flex h-screen w-full p-4 lg2:p-8 font-sans overflow-hidden">
+    <div className="relative flex h-screen w-full lg2:p-8 font-sans overflow-hidden">
       <AnimatedBackground />
 
       <div className="flex w-full lg2:gap-4 overflow-hidden"
@@ -53,7 +53,7 @@ const ChatPage = () => {
 
         {/* Sidebar */}
         {(isDesktop || !activeChatId) && (
-          <div className="flex flex-shrink-0 w-[20%] lg2:w-auto">
+          <div className="lg2:flex hidden flex-shrink-0 w-[20%] lg2:w-auto">
             <Sidebar onProfileClick={() => setProfileUser(profile)} />
           </div>
         )}
@@ -67,7 +67,7 @@ const ChatPage = () => {
 
         {/* RightPanel */}
         {(isDesktop || !activeChatId) && (
-          <div className="flex w-[80%] lg2:w-auto">
+          <div className="flex w-[100%] lg2:w-auto">
             <RightPanel />
           </div>
         )}

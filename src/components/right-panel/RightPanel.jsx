@@ -50,7 +50,7 @@ const RightPanel = () => {
 
 
   return (
-    <div className="w-full lg2:w-80 bg-white p-4 lg2:p-6 overflow-y-auto rounded-[30px]">
+    <div className="w-full lg2:w-80 bg-white p-4 lg2:p-6 overflow-y-auto lg2:rounded-[30px]">
       {/* HEADER */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Messages</h2>
