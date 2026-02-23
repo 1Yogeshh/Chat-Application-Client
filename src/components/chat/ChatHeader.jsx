@@ -1,6 +1,6 @@
 import { Video, Phone, ArrowLeft } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { setActiveChat } from "../../store/slices/chatSlice"; 
+import { setActiveChat } from "../../store/slices/chatSlice";
 
 const ChatHeader = ({ onUserClick, user, isOnline }) => {
   const dispatch = useDispatch();
@@ -12,22 +12,19 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
   };
 
   const handleBack = (e) => {
-    e.stopPropagation(); // profile open hone se roke
+    e.stopPropagation();
     dispatch(setActiveChat(null));
   };
 
   return (
-    <header className="flex items-center justify-between border-b px-4 md:px-8 py-4 bg-white">
-      
-      {/* Left Section */}
+    <header className="flex items-center justify-between px-4 md:px-8 py-4 bg-white lg2:rounded-[30px]">
       <div
         onClick={handleProfileOpen}
         className="flex items-center gap-3 cursor-pointer"
       >
-        {/* Back Button (Mobile Only) */}
         <button
           onClick={handleBack}
-          className="md:hidden p-2 rounded-lg hover:bg-gray-200 transition"
+          className="lg2:hidden p-2 rounded-lg hover:bg-gray-200 transition"
         >
           <ArrowLeft size={20} />
         </button>
@@ -46,9 +43,8 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
           </h3>
 
           <p
-            className={`text-xs font-medium ${
-              isOnline ? "text-green-500" : "text-gray-400"
-            }`}
+            className={`text-xs font-medium ${isOnline ? "text-green-500" : "text-gray-400"
+              }`}
           >
             {isOnline ? "Online" : "Offline"}
           </p>

@@ -22,16 +22,6 @@ const ChatLayout = ({ onUserClick }) => {
 
     return (
         <div className="flex flex-1 flex-col bg-[#F4F3F8] lg2:rounded-[30px]">
-            {/* Mobile back button */}
-            {/* <div className="md:hidden flex items-center gap-2 px-4 pt-4">
-                <button
-                    onClick={() => dispatch(setActiveChat(null))}
-                    className="p-2 rounded-lg hover:bg-gray-200"
-                >
-                    <ArrowLeft size={20} />
-                </button>
-            </div> */}
-
             <ChatHeader setActiveChat={setActiveChat} onUserClick={onUserClick} user={currentChat?.otherUser} isOnline={isOnline} />
             <Messages chatId={activeChatId} otherUser={currentChat?.otherUser} />
             <MessageInput chatId={activeChatId} />
