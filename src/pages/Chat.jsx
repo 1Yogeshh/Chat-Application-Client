@@ -20,19 +20,39 @@ const ChatPage = () => {
   useEffect(() => {
     const socket = connectSocket();
 
-    socket.on("connect", () => { });
+    socket.on("connect", () => {
+      console.log("connected")
+    });
 
     socket.on("online-users-list", (users) => {
       dispatch(setOnlineUsers(users));
     });
 
+    // socket.on("new-message", (message) => {
+    //   dispatch(addMessage({ chatId: message.chatId, message }));
+    //   dispatch(fetchChats())
+    // });
+
     socket.on("new-message", (message) => {
       dispatch(addMessage({ chatId: message.chatId, message }));
-      dispatch(fetchChats())
+
+      const state = store.getState();
+      const existingChat = state.chat.chats.find(
+        c => c.id === message.chatId
+      );
+
+      if (!existingChat) {
+        // 🔥 chat list refresh only if new chat
+        dispatch(fetchChats());
+      }
     });
 
     socket.on("message-seen", (data) => {
       dispatch(updateSeen(data));
+    });
+
+    socket.on("connect_error", (err) => {
+      console.log("SOCKET ERROR:", err.message);
     });
 
     return () => {

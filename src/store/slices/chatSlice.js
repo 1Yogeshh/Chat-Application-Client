@@ -124,12 +124,6 @@ const chatSlice = createSlice({
 
                 state.chats.splice(chatIndex, 1);
                 state.chats.unshift(chat);
-            } else {
-                state.chats.unshift({
-                    id: chatId,
-                    otherUser: message.sender || {},  // adjust if needed
-                    lastMessage: message
-                });
             }
         },
         updateSeen: (state, action) => {
