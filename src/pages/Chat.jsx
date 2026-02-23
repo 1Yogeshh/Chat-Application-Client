@@ -11,7 +11,7 @@ import { useBreakpoint } from "../hooks/useBreakpoint";
 
 const ChatPage = () => {
   const { profile } = useSelector((s) => s.user);
-  const { activeChatId } = useSelector((s) => s.chat);
+  const { activeChatId, chats } = useSelector((s) => s.chat);
 
   const [profileUser, setProfileUser] = useState(null);
 
@@ -34,15 +34,14 @@ const ChatPage = () => {
     // });
 
     socket.on("new-message", (message) => {
-      dispatch(addMessage({ chatId: message.chatId, message }));
 
-      const state = store.getState();
-      const existingChat = state.chat.chats.find(
+      const existingChat = chats.find(
         c => c.id === message.chatId
       );
 
+      dispatch(addMessage({ chatId: message.chatId, message }));
+
       if (!existingChat) {
-        // 🔥 chat list refresh only if new chat
         dispatch(fetchChats());
       }
     });
@@ -61,46 +60,51 @@ const ChatPage = () => {
       socket.off("online-users-list");
       disconnectSocket();
     };
-  }, [dispatch]);
+  }, [dispatch, chats]);
 
   const isDesktop = useBreakpoint(1083);
 
   return (
-    <div className="relative flex h-screen w-full lg2:p-8 font-sans overflow-hidden">
+    <div className="relative flex h-screen w-full lg2:p-8 font-sans overflow-hidden" >
       <AnimatedBackground />
 
       <div className="flex w-full lg2:gap-4 overflow-hidden"
-        style={{ borderRadius: isDesktop ? '40px' : '0' }}>
+        style={
+          { borderRadius: isDesktop ? '40px' : '0' }} >
 
-        {/* Sidebar */}
+        { /* Sidebar */}
         {(isDesktop || !activeChatId) && (
-          <div className="lg2:flex hidden flex-shrink-0 w-[20%] lg2:w-auto">
-            <Sidebar onProfileClick={() => setProfileUser(profile)} />
+          <div className="lg2:flex hidden flex-shrink-0 w-[20%] lg2:w-auto" >
+            <Sidebar onProfileClick={
+              () => setProfileUser(profile)}
+            />
           </div>
-        )}
+        )
+        }
 
-        {/* ChatLayout */}
-        {(isDesktop || activeChatId) && (
-          <div className="flex flex-1 min-w-0">
-            <ChatLayout onUserClick={(user) => setProfileUser(user)} />
-          </div>
-        )}
+        { /* ChatLayout */} {
+          (isDesktop || activeChatId) && (<div className="flex flex-1 min-w-0" >
+            <ChatLayout onUserClick={
+              (user) => setProfileUser(user)}
+            /> </div>
+          )
+        }
 
-        {/* RightPanel */}
-        {(isDesktop || !activeChatId) && (
-          <div className="flex w-[100%] lg2:w-auto">
-            <RightPanel />
-          </div>
-        )}
+        { /* RightPanel */}
+        {
+          (isDesktop || !activeChatId) && (
+            <div className="flex w-[100%] lg2:w-auto" >
+              <RightPanel />
+            </div>
+          )
+        }
 
-      </div>
-      <ProfileModal
-        open={!!profileUser}
+      </div> <ProfileModal open={!!profileUser}
         user={profileUser}
         loggedInUser={profile}
-        onClose={() => setProfileUser(null)}
-      />
-    </div>
+        onClose={
+          () => setProfileUser(null)}
+      /> </div>
   );
 };
 
