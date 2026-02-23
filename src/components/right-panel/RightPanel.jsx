@@ -61,7 +61,7 @@ const RightPanel = () => {
 
       {/* SEARCH */}
       <div className="mb-6">
-        <div className="flex items-center bg-gray-100 p-1 rounded-lg">
+        <div className="flex items-center bg-gray-100 p-4 lg2:p-2 rounded-lg">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
