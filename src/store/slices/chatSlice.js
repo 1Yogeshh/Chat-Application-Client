@@ -22,12 +22,32 @@ export const fetchChats = createAsyncThunk(
 );
 
 // fetch messages
+// export const fetchMessages = createAsyncThunk(
+//     "chat/fetchMessages",
+//     async (chatId, { rejectWithValue }) => {
+//         try {
+//             const res = await getMessagesAPI(chatId);
+//             return { chatId, messages: res.data };
+//         } catch (e) {
+//             showToast.error("Failed to load messages");
+//             return rejectWithValue(e.response?.data);
+//         }
+//     }
+// );
+
 export const fetchMessages = createAsyncThunk(
     "chat/fetchMessages",
-    async (chatId, { rejectWithValue }) => {
+    async ({ chatId, cursor = null }, { rejectWithValue }) => {
         try {
-            const res = await getMessagesAPI(chatId);
-            return { chatId, messages: res.data };
+            const res = await getMessagesAPI(chatId, cursor);
+
+            return {
+                chatId,
+                messages: res.data.messages,
+                nextCursor: res.data.nextCursor,
+                hasMore: res.data.hasMore,
+                isPagination: !!cursor
+            };
         } catch (e) {
             showToast.error("Failed to load messages");
             return rejectWithValue(e.response?.data);
@@ -73,6 +93,8 @@ const chatSlice = createSlice({
         messages: {},
         loading: false,
         onlineUsers: {},
+        pagination: {},
+        paginationLoading: {},
     },
     reducers: {
         setActiveChat: (state, action) => {
@@ -131,9 +153,48 @@ const chatSlice = createSlice({
             .addCase(fetchChats.fulfilled, (state, action) => {
                 state.chats = action.payload;
             })
+            // .addCase(fetchMessages.fulfilled, (state, action) => {
+            //     state.messages[action.payload.chatId] =
+            //         action.payload.messages;
+            // })
+            .addCase(fetchMessages.pending, (state, action) => {
+                const { chatId, cursor } = action.meta.arg;
+
+                // Only show loader for pagination (not first load)
+                if (cursor) {
+                    state.paginationLoading[chatId] = true;
+                }
+            })
             .addCase(fetchMessages.fulfilled, (state, action) => {
-                state.messages[action.payload.chatId] =
-                    action.payload.messages;
+                const { chatId, messages, nextCursor, hasMore, isPagination } = action.payload;
+
+                if (!state.messages[chatId] || !isPagination) {
+                    state.messages[chatId] = messages;
+                } else {
+                    const existingIds = new Set(
+                        state.messages[chatId].map(m => m.id)
+                    );
+
+                    const filteredNewMessages = messages.filter(
+                        m => !existingIds.has(m.id)
+                    );
+
+                    state.messages[chatId] = [
+                        ...filteredNewMessages,
+                        ...state.messages[chatId]
+                    ];
+                }
+
+                state.pagination[chatId] = {
+                    nextCursor,
+                    hasMore
+                };
+
+                state.paginationLoading[chatId] = false;
+            })
+            .addCase(fetchMessages.rejected, (state, action) => {
+                const { chatId } = action.meta.arg;
+                state.paginationLoading[chatId] = false;
             })
             .addCase(sendMessage.fulfilled, (state, action) => {
                 const msg = action.payload;

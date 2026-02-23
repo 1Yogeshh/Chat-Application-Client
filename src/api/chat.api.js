@@ -6,10 +6,18 @@ export const getMyChatsAPI = () => {
 }
 
 //get messages only
-export const getMessagesAPI = (chatId) => {
-    // console.log(chatId)
-    return api.get(`/api/chat/${chatId}`);
-}
+// export const getMessagesAPI = (chatId) => {
+//     // console.log(chatId)
+//     return api.get(`/api/chat/${chatId}`);
+// }
+
+export const getMessagesAPI = (chatId, cursor = null) => {
+    return api.get(`/api/chat/${chatId}`, {
+        params: {
+            cursor
+        }
+    });
+};
 
 //send message api
 export const sendMessageAPI = (data) => {
