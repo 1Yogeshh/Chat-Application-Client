@@ -1,5 +1,4 @@
 export default function ProfileHeader({ isOwn, user }) {
-  console.log("hello... ", user)
   return (
     <div className="relative">
       <div className="h-40 bg-[#4F46E5]" />

@@ -20,9 +20,7 @@ const ChatPage = () => {
   useEffect(() => {
     const socket = connectSocket();
 
-    socket.on("connect", () => {
-      // console.log("connected")
-    });
+    socket.on("connect", () => { });
 
     socket.on("online-users-list", (users) => {
       dispatch(setOnlineUsers(users));
@@ -45,9 +43,7 @@ const ChatPage = () => {
       dispatch(updateSeen(data));
     });
 
-    socket.on("connect_error", (err) => {
-      // console.log("SOCKET ERROR:", err.message);
-    });
+    socket.on("connect_error", (err) => { });
 
     return () => {
       socket.off("new-message");
@@ -70,18 +66,19 @@ const ChatPage = () => {
         { /* Sidebar */}
         {(isDesktop || !activeChatId) && (
           <div className="lg2:flex hidden flex-shrink-0 w-[20%] lg2:w-auto" >
-            <Sidebar onProfileClick={
-              () => setProfileUser(profile)}
+            <Sidebar
+              onProfileClick={
+                () => setProfileUser(profile)}
             />
           </div>
-        )
-        }
+        )}
 
         { /* ChatLayout */} {
-          (isDesktop || activeChatId) && (<div className="flex flex-1 min-w-0" >
-            <ChatLayout onUserClick={
-              (user) => setProfileUser(user)}
-            /> </div>
+          (isDesktop || activeChatId) && (
+            <div className="flex flex-1 min-w-0" >
+              <ChatLayout onUserClick={
+                (user) => setProfileUser(user)}
+              /> </div>
           )
         }
 
@@ -94,12 +91,15 @@ const ChatPage = () => {
           )
         }
 
-      </div> <ProfileModal open={!!profileUser}
+      </div>
+      <ProfileModal
+        open={!!profileUser}
         user={profileUser}
         loggedInUser={profile}
         onClose={
           () => setProfileUser(null)}
-      /> </div>
+      />
+    </div>
   );
 };
 

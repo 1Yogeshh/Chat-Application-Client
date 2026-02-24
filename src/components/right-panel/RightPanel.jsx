@@ -47,8 +47,6 @@ const RightPanel = () => {
         msg.status !== "SEEN"
     ).length;
   }
-
-
   return (
     <div className="w-full lg2:w-80 bg-white p-4 lg2:p-6 overflow-y-auto lg2:rounded-[30px]">
       {/* HEADER */}

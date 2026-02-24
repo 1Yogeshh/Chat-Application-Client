@@ -18,9 +18,6 @@ export default function LoginForm() {
         e.preventDefault();
         const form = new FormData(e.target);
 
-        console.log(form.get("email"))
-        console.log(form.get("password"))
-
         dispatch(
             loginUser({
                 email: form.get("email"),
@@ -34,8 +31,6 @@ export default function LoginForm() {
     }
 
     useEffect(() => {
-        // if (!user) return;
-
         if (profile === undefined) return;
 
         if (profile) {
