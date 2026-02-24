@@ -28,11 +28,6 @@ const ChatPage = () => {
       dispatch(setOnlineUsers(users));
     });
 
-    // socket.on("new-message", (message) => {
-    //   dispatch(addMessage({ chatId: message.chatId, message }));
-    //   dispatch(fetchChats())
-    // });
-
     socket.on("new-message", (message) => {
 
       const existingChat = chats.find(
