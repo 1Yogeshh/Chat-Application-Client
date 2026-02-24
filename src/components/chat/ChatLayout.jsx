@@ -1,12 +1,10 @@
 import ChatHeader from "./ChatHeader";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { setActiveChat } from "../../store/slices/chatSlice";
-import { ArrowLeft } from "lucide-react";
 
 const ChatLayout = ({ onUserClick }) => {
-    const dispatch = useDispatch();
     const { activeChatId, chats, onlineUsers } = useSelector((s) => s.chat)
 
     if (!activeChatId) {

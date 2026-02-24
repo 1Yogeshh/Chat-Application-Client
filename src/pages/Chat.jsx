@@ -21,7 +21,7 @@ const ChatPage = () => {
     const socket = connectSocket();
 
     socket.on("connect", () => {
-      console.log("connected")
+      // console.log("connected")
     });
 
     socket.on("online-users-list", (users) => {
@@ -46,7 +46,7 @@ const ChatPage = () => {
     });
 
     socket.on("connect_error", (err) => {
-      console.log("SOCKET ERROR:", err.message);
+      // console.log("SOCKET ERROR:", err.message);
     });
 
     return () => {
