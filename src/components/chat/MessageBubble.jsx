@@ -42,7 +42,7 @@ const MessageBubble = ({
 
   return (
     <div className="flex flex-col items-end gap-1">
-      <div className="bg-[#D1FADF] p-4 rounded-2xl rounded-tr-none text-sm font-medium shadow-sm">
+      <div className="bg-[#1A0B2E] p-4 rounded-2xl rounded-tr-none text-sm font-medium shadow-sm">
         {message}
       </div>
       <div className="flex items-center gap-1 text-[10px] text-gray-400">
