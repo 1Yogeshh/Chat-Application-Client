@@ -21,20 +21,6 @@ export const fetchChats = createAsyncThunk(
     }
 );
 
-// fetch messages
-// export const fetchMessages = createAsyncThunk(
-//     "chat/fetchMessages",
-//     async (chatId, { rejectWithValue }) => {
-//         try {
-//             const res = await getMessagesAPI(chatId);
-//             return { chatId, messages: res.data };
-//         } catch (e) {
-//             showToast.error("Failed to load messages");
-//             return rejectWithValue(e.response?.data);
-//         }
-//     }
-// );
-
 export const fetchMessages = createAsyncThunk(
     "chat/fetchMessages",
     async ({ chatId, cursor = null }, { rejectWithValue }) => {
