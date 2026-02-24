@@ -139,14 +139,8 @@ const chatSlice = createSlice({
             .addCase(fetchChats.fulfilled, (state, action) => {
                 state.chats = action.payload;
             })
-            // .addCase(fetchMessages.fulfilled, (state, action) => {
-            //     state.messages[action.payload.chatId] =
-            //         action.payload.messages;
-            // })
             .addCase(fetchMessages.pending, (state, action) => {
                 const { chatId, cursor } = action.meta.arg;
-
-                // Only show loader for pagination (not first load)
                 if (cursor) {
                     state.paginationLoading[chatId] = true;
                 }
