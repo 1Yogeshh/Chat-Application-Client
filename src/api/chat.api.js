@@ -5,12 +5,7 @@ export const getMyChatsAPI = () => {
     return api.get("/api/chats");
 }
 
-//get messages only
-// export const getMessagesAPI = (chatId) => {
-//     // console.log(chatId)
-//     return api.get(`/api/chat/${chatId}`);
-// }
-
+//get message API
 export const getMessagesAPI = (chatId, cursor = null) => {
     return api.get(`/api/chat/${chatId}`, {
         params: {
