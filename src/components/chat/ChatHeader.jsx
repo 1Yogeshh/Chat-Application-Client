@@ -29,14 +29,12 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
           <ArrowLeft size={20} />
         </button>
 
-        {/* Avatar */}
         <img
           src={user.avtar || "/default-avatar.png"}
           alt={user.name}
           className="h-10 w-10 rounded-full object-cover border"
         />
 
-        {/* User Info */}
         <div>
           <h3 className="text-sm font-semibold text-gray-800">
             {user.name} ({user.username})
@@ -51,7 +49,6 @@ const ChatHeader = ({ onUserClick, user, isOnline }) => {
         </div>
       </div>
 
-      {/* Right Section */}
       <div className="flex gap-4 text-gray-400">
         <Video size={20} className="cursor-pointer hover:text-gray-600" />
         <Phone size={20} className="cursor-pointer hover:text-gray-600" />
