@@ -20,7 +20,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-
     if (token) {
       dispatch(fetchMyProfile());
     }
